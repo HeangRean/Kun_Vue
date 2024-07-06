@@ -4,7 +4,7 @@
 
 <template>
     <div>
-        <h1 class="text-center pt-12">ព័ត៏មានថ្មីៗ</h1>
+        <h1 class="text-center pt-12">ពងក្ដប្រូវាសនា</h1>
     </div>
     <div class="flex flex-col justify-center items-center">
         <div class="flex w-5/6 h-80 mt-8 border-2 border-gray-300">
