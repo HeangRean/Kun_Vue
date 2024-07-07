@@ -85,7 +85,7 @@ const handleRegister = () => {
       </div>
 
       <!-- Register Button -->
-      <div class="flex justify-center mb-12">
+      <div class="flex justify-center mb-8">
         <button type="submit" class="w-full bg-[#F4A517] text-white font-semibold py-2 px-4 rounded-sm hover:bg-[#e4ac42]">Register</button>
       </div>
       <p class="text-center text-sm text-gray-600 mt-10 mb-32">Don't have an account? <RouterLink to="/Login" class="text-indigo-600 hover:underline">Login</RouterLink></p>  

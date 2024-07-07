@@ -10,6 +10,9 @@ export default {
       colors: {
         'custom-green': '#008C0E',
       },
+      fontFamily: {
+        'khmer-battambang': ['"Khmer OS Battambang"', 'sans-serif'],
+      },
     },
   },
   plugins: [],

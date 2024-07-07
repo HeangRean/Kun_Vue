@@ -1,9 +1,10 @@
 <template>
   <div class="bg-[#F4A517] w-full h-20 flex items-center justify-between pr-5">
     <div class="Row flex items-center">
-      <div class="bg-red-500 w-[60px] h-[60px] rounded-full flex items-center justify-center ml-5">
-        <RouterLink to="/" class="text-white">
-          Logo
+      <div class=" w-[60px] h-[60px] rounded-full flex items-center justify-center ml-5">
+        <RouterLink to="/">
+          <img src="" alt="Image Description"
+          class="w-[4 -[40px] object-cover">
         </RouterLink>
       </div>
 
