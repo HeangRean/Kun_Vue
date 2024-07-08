@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto mt-20">
+  <div class="max-w-md mx-auto mt-20 mb-72 ">
     <form @submit.prevent="login" class="bg-[#EBEBEB] shadow-md rounded-lg px-8 pt-6 pb-8 mb-8">
       <div class="w-ful flex justify-center">
         <img src="/public/images/./logo/logo.png" alt="Image" class="w-full max-w-[80px] h-auto object-cover rounded-ful">

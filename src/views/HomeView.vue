@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue';
 </script>
 
 <template>
-<main class="p-4 md:p-8 lg:p-12">
+<main class="p-4 md:p-8 lg:p-12 mb-12">
   <div class="flex flex-col items-center">
     <h1 class="text-center pt-8 pb-10">សេចក្តីប្រកាសព័ត៌មាន</h1>
     <img src="/public/images/content/mocspace_1719388983279 1.png" alt="Image" class="w-full max-w-[1280px] h-auto object-cover rounded-lg">

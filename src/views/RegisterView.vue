@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-sm mx-auto mt-10 bg-[#EBEBEB] shadow-md rounded-lg p-4 mb-20">
+  <div class="max-w-sm mx-auto mt-10 bg-[#EBEBEB] shadow-md rounded-lg p-4 mb-64">
     <h1 class="text-2xl font-bold mb-4 text-center">Register</h1>
     <form @submit.prevent="handleRegister">
       <!-- Full Name Input -->
