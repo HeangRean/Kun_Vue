@@ -16,3 +16,11 @@
          url(https://fonts.gstatic.com/s/khmerosbattambang/v14/57__5CxoHlIP_Yo.php.woff) format('woff');
   }
   
+  @font-face {
+     font-family: 'Palanquin Dark';
+     font-style: normal;
+     font-weight: 400;
+     src: local('Palanquin Dark Regular'), local('PalanquinDark-Regular'),
+          url(https://fonts.gstatic.com/s/palanquindark/v5/xn75YHgl1nqmANMB-26TXZU1xg.php) format('woff2'),
+          url(https://fonts.gstatic.com/s/palanquindark/v5/xn75YHgl1nqmANMB-26TXZU.php) format('woff');
+   }
