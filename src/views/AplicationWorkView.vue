@@ -21,7 +21,7 @@
           </div>
         </div>
         <!-- Bottom Section -->
-        <div class="w-full h-24 bg-[#9BC1FF] flex flex-col md:flex-row justify-between items-center p-5 relative border border-[#0094FF] border-t-1 rounded-bl-lg rounded-br-lg ">
+        <div class="w-full h-30 bg-[#9BC1FF] flex flex-col md:flex-row justify-between items-center p-5 relative border border-[#0094FF] border-t-1 rounded-bl-lg rounded-br-lg ">
           <h3 class="text-base md:text-lg ">ឯកសារពាក់ព័ន្ធ</h3>
           <div class="flex gap-8 mt-4 md:mt-0">
             <!-- Meeting Status -->

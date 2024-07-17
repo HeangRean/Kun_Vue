@@ -12,7 +12,7 @@ import { Icon } from '@iconify/vue';
       <span class="post ml-2 md:ml-4 lg:ml-6">ផុសថ្ងៃ: 12-01-2024</span>
     </div>
   </div>
-  <p class="w-full max-w-[88rem] pl-12 md:pl-8 lg:pl-[12px] mb-20">
+  <p class="w-full max-w-[88rem] pl-24 md:pl-8 lg:pl-[12px] mb-20">
     ដំណើរទស្សនកិច្ចសិក្សាទៅកាន់ខេត្តមណ្ឌលគិរី ក្នុងដំណើរការ ទស្សនកិច្ចនេះ និសិ្សតបានចុះកិច្ចសិក្សានិងប្រមូលព័ត៍មានដំណើរទស្សនកិច្ចសិក្សាទៅកាន់ខេត្តមណ្ឌលគិរី ក្នុងដំណើរការ ទស្សនកិច្ចនេះ និសិ្សតបានចុះកិច្ចសិក្សា និងប្រមូលព័ត៍មានទស្សនកិច្ចនេះ និសិ្សតបានចុះកិច្ចសិក្សានិងប្រមូលព័ត៍មានដំណើរទស្សនកិច្ចសិក្សាទៅកាន់ខេត្តមណ្ឌលគិរី ...
   </p>
 </main>
@@ -32,6 +32,7 @@ p {
   font-weight: normal;
   font-size: 1rem; /* Default for small screens */
   padding-left: 1px;
+  
 }
 
 @media (min-width: 768px) { /* Medium screens (tablets) */
@@ -61,15 +62,30 @@ p {
   p {
     font-size: 1.5rem;
     width: 1200px;
-    padding-left: 4rem;
+    padding-left:12px;
+  }
+}
+@media (min-width: 1285px) { /* Specific width of 1294px */
+  p {
+    font-size: 1.5rem;
+    width: 1200px;
+    padding-left:12px;
   }
 }
 
-@media (min-width: 1380px) { /* Extra large screens */
+@media (min-width: 1380px) { /* Extra large screens */  
   p {
     font-size: 1.5rem;
     width: 1320px;
-    padding-left: 4rem;
+    padding-left: 4px;
+  }
+}
+
+@media (min-width: 1500px) { /* Extra large screens */  
+  p {
+    font-size: 1.5rem;
+    width: 1320px;
+    padding-left: 60px;
   }
 }
 </style>
