@@ -21,20 +21,20 @@
           </div>
         </div>
         <!-- Bottom Section -->
-        <div class="w-full h-30 bg-[#9BC1FF] flex flex-col md:flex-row justify-between items-center p-5 relative border border-[#0094FF] border-t-1 rounded-bl-lg rounded-br-lg ">
+        <div class="w-full h-30 bg-[#9BC1FF] flex flex-col md:flex-row justify-between items-center p-5 relative border border-[#0094FF] border-t-[0.5px] border-b-0 border-r-0 border-l-0 rounded-bl-lg rounded-br-lg ">
           <h3 class="text-base md:text-lg ">ឯកសារពាក់ព័ន្ធ</h3>
           <div class="flex gap-8 mt-4 md:mt-0">
             <!-- Meeting Status -->
             <div class="flex items-center gap-4">
               <h3 class="text-base md:text-lg">បានប្រជុំរួចរាល់</h3> 
-              <div class="border-2 border-[#008C0E] rounded-full w-9 h-9 flex justify-center items-center">
-                <Icon class="size-7" style="color: #008C0E" icon="icon-park-solid:correct" />
+              <div class="border-2 border-[#008C0E] rounded-full w-6 h-6 flex justify-center items-center">
+                <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:correct" />
               </div>
             </div>
             <!-- Meeting Status (Red) -->
             <div class="flex items-center gap-4">
               <h3 class="text-base md:text-lg text-[#FF0000]">ពុំទាន់បានប្រជុំ</h3>
-              <div class="border-2 border-[#FF0000] rounded-full w-9 h-9 flex justify-center items-center">
+              <div class="border-2 border-[#FF0000] rounded-full w-6 h-6 flex justify-center items-center">
                 <!-- Placeholder for icon or content -->
               </div>
             </div>
