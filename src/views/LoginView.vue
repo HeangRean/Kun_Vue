@@ -2,7 +2,7 @@
   <div class="max-w-md mx-auto mt-20 mb-72 ">
     <form @submit.prevent="login" class="bg-[#EBEBEB] shadow-md rounded-lg px-8 pt-6 pb-8 mb-8">
       <div class="w-ful flex justify-center">
-        <img src="/public/images/./logo/logo.png" alt="Image" class="w-full max-w-[80px] h-auto object-cover rounded-ful">
+        <img :src="logo" alt="Logo" class="w-full max-w-[80px] h-auto object-cover rounded-ful">
       </div>
      
       <h1 class="loginForm text-3xl font-bold mb-5 text-center text-red-400 mt-2">Login</h1>
@@ -39,6 +39,7 @@ import { useRouter } from 'vue-router';
 const username = ref('');
 const password = ref('');
 const router = useRouter();
+const logo = ref('/images/logo/Output_v2.svg'); // Corrected path
 
 const login = () => {
   // Simulated login logic

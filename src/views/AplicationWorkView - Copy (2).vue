@@ -123,7 +123,7 @@ h3 {
   }
 
   .main-box {
-    flex-direction: row;
+    flex-direction: column;
     padding-top: 1rem;
   }
 
