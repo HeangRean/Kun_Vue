@@ -9,11 +9,14 @@
       <div class="box w-full md:w-4/2 lg:w-3/1 mb-[-30px]">
         <div class="w-full bg-[#9BC1FF] flex flex-col md:flex-row rounded-tl-lg rounded-tr-lg rounded-br-lg rounded-bl-lg">
           <!-- Left Section -->
-          <div class="text-respon box1 w-full md:w-1/3 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
-            <h3 class=" text-lg md:text-xl flex gap-2 justify-center pt-10">
-              <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />{{ item.time }} {{ item["meeting shift"] }}
-            </h3>
-          </div>
+          <div class="text-respon box1 w-full md:w-1/3 border-[#0094FF] border-b md:border-b-0 md:border-r p-2 flex flex-col justify-center items-center">
+  <h3 class="text-lg md:text-xl flex gap-2 justify-center items-center">
+    <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />
+    {{ item.time }} {{ item["meeting shift"] }}
+  </h3>
+</div>
+
+
           <!-- Middle Section -->
           <div class="text-respon box1 w-full md:w-1/2 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
             <h3 class="text-base md:text-lg pt-5">{{ item.description }}</h3>
