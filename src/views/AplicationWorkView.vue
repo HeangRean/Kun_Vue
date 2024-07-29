@@ -10,17 +10,17 @@
         <div class="w-full bg-[#9BC1FF] flex flex-col md:flex-row rounded-tl-lg rounded-tr-lg rounded-br-lg rounded-bl-lg">
           <!-- Left Section -->
           <div class="text-respon box1 w-full md:w-1/3 border-[#0094FF] border-b md:border-b-0 md:border-r p-2 flex flex-col justify-center items-center">
-  <h3 class="text-lg md:text-xl flex gap-2 justify-center items-center">
-    <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />
-    {{ item.time }} {{ item["meeting shift"] }}
-  </h3>
-</div>
-
+            <h3 class="text-lg md:text-xl flex gap-2 justify-center items-center">
+              <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />
+              {{ item.time }} {{ item["meeting shift"] }}
+            </h3>
+          </div>
 
           <!-- Middle Section -->
           <div class="text-respon box1 w-full md:w-1/2 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
             <h3 class="text-base md:text-lg pt-5">{{ item.description }}</h3>
           </div>
+
           <!-- Right Section -->
           <div class="box1 w-full md:w-1/3 p-2 pt-7 rounded-br-lg">
             <h3 class="text-respon text-style text-lg md:text-xl pl-4">{{ item.roome }}</h3>
@@ -59,8 +59,6 @@
   </div>
 </template>
 
-
-
 <script setup>
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
@@ -70,6 +68,7 @@ import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust t
 const stateForm = ref(db || []);
 console.log({ stateForm });
 </script>
+
 <style scoped>
 /* Font Family */
 h1 {
@@ -120,7 +119,7 @@ h3 {
   }
 }
 
-@media (max-width: 480px) and (min-width: 375px) {
+@media (max-width: 480px) {
   .main-box {
     display: flex;
     flex-direction: row;
