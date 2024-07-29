@@ -9,18 +9,18 @@
       <div class="box w-full md:w-4/2 lg:w-3/1 mb-[-30px]">
         <div class="w-full bg-[#9BC1FF] flex flex-col md:flex-row rounded-tl-lg rounded-tr-lg rounded-br-lg rounded-bl-lg">
           <!-- Left Section -->
-          <div class="box1 w-full md:w-1/3 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
-            <h3 class="text-lg md:text-xl flex gap-2 justify-center pt-10">
+          <div class="text-respon box1 w-full md:w-1/3 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
+            <h3 class=" text-lg md:text-xl flex gap-2 justify-center pt-10">
               <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />{{ item.time }} {{ item["meeting shift"] }}
             </h3>
           </div>
           <!-- Middle Section -->
-          <div class="box1 w-full md:w-1/2 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
+          <div class="text-respon box1 w-full md:w-1/2 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
             <h3 class="text-base md:text-lg pt-5">{{ item.description }}</h3>
           </div>
           <!-- Right Section -->
           <div class="box1 w-full md:w-1/3 p-2 pt-7 rounded-br-lg">
-            <h3 class="text-lg md:text-xl pl-4">{{ item.roome }}</h3>
+            <h3 class="text-respon text-style text-lg md:text-xl pl-4">{{ item.roome }}</h3>
             <!-- Bottom Section -->
             <div class="w-full h-30 bg-[#9BC1FF] flex flex-col md:flex-row justify-between items-center p-5 relative border border-[#0094FF] border-t-0 border-b-0 border-r-0 border-l-0">
               <h3 class="text-style text-base md:text-lg flex gap-2">
@@ -31,7 +31,7 @@
                 <div class="flex items-center gap-4">
                   <h3 class="text-style text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
                   <div v-if="item.status === 'pennding'" class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                    <Icon class="size-4" style="color: green" icon="icon-park-solid:correct"/>
+                    <Icon class="text-style size-4" style="color: green" icon="icon-park-solid:correct"/>
                   </div>
                   <div v-else class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
                     <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:red"/>
@@ -56,6 +56,8 @@
   </div>
 </template>
 
+
+
 <script setup>
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
@@ -65,7 +67,6 @@ import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust t
 const stateForm = ref(db || []);
 console.log({ stateForm });
 </script>
-
 <style scoped>
 /* Font Family */
 h1 {
@@ -116,15 +117,24 @@ h3 {
   }
 }
 
-@media (max-width: 480px) {
-  .box1 {
-    display: block;
-    padding: 1rem 0.5rem;
+@media (max-width: 480px) and (min-width: 375px) {
+  .main-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
   }
 
-  .main-box {
-    flex-direction: row;
-    padding-top: 1rem;
+  .text-respon {
+    flex: 1;
+  }
+  
+  .box1 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0.5rem;
   }
 
   .box1 h3 {
@@ -141,10 +151,15 @@ h3 {
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 374px) {
   .box1 {
-    display: block;
+    display: flex;
+    flex-direction: column;
     padding: 1rem 0.5rem;
+  }
+  .text-respon { 
+    display: flex;
+    flex-direction: column;
   }
 
   .main-box {
@@ -166,4 +181,3 @@ h3 {
   }
 }
 </style>
- 
