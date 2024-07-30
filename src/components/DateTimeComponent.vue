@@ -27,7 +27,7 @@ export default {
       const seconds = this.convertToKhmerNumerals(now.getSeconds().toString().padStart(2, '0'));
       const formattedTime = `${hours}:${minutes}:${seconds}`;
       const prefix = this.getKhmerDatePrefix(now);
-      this.fullFormattedDateTime = `${prefix}ទី ${dayOfMonth} ខែ${month} ឆ្នាំ${year} ម៉ោង ${formattedTime}`;
+      this.fullFormattedDateTime = `${prefix} ${dayOfMonth} ខែ${month} ឆ្នាំ${year} ម៉ោង ${formattedTime}`;
     },
     getDayOfWeekKhmer(dayOfWeek) {
       const days = ["អាទិត្យ", "ចន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍"];
@@ -40,15 +40,30 @@ export default {
     getKhmerDatePrefix(date) {
       const khmerDays = ["ថ្ងៃអាទិត្យ", "ថ្ងៃចន្ទ", "ថ្ងៃអង្គារ", "ថ្ងៃពុធ", "ថ្ងៃព្រហស្បតិ៍", "ថ្ងៃសុក្រ", "ថ្ងៃសៅរ៍"];
       const khmerMonths = ["មិគសិរ", "មាឃ", "ផល្គុន", "ចេត្រ", "ពិសាខ", "ជេស្ឋ", "អាសាឍ", "ស្រាពណ៏", "ភទ្របទ", "អស្សុជ", "កត្កិក", "បុស្ស"];
-      const nameYear = ["ឆ្នាំជូត", "ឆ្នាំឆ្លូវ", "ឆ្នាំខាល", "ឆ្នាំថោះ", "ឆ្នាំរោង", "ឆ្នាំម្សាញ់", "ឆ្នាំមមី", "ឆ្នាំមមែ", "ឆ្នាំវក", "ឆ្នាំរកា", "ឆ្នាំច", "ឆ្នាំកុរ"];
+      const nameYear = ["ឆ្នាំជូត", "ឆ្នាំឆ្លួរ", "ឆ្នាំខាល", "ឆ្នាំថោះ", "ឆ្នាំរោង", "ឆ្នាំម្សាញ់", "ឆ្នាំមមី", "ឆ្នាំមមែ", "ឆ្នាំវក", "ឆ្នាំរកា", "ឆ្នាំច", "ឆ្នាំកុរ"];
+
+      // Helper function to get Khmer numeral representation
+      const convertToKhmerNumerals = (numStr) => {
+        const numerals = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
+        return numStr.split('').map(digit => numerals[parseInt(digit)]).join('');
+      };
+
+      // Determine day of week, month, and year
       const dayOfWeek = khmerDays[date.getDay()];
-      const dayOfMonth = this.convertToKhmerNumerals(date.getDate().toString());
       const month = khmerMonths[date.getMonth()];
       const year = nameYear[(date.getFullYear() - 4) % 12];
-      const buddhistYear = this.convertToKhmerNumerals((date.getFullYear() + 544).toString());
-      const lunarPhase = date.getDate() <= 15 ? 'កើត' : 'រោច';
-      const dayInLunarPhase = date.getDate() <= 15 ? date.getDate() : date.getDate() - 15;
-      const khmerDayInLunarPhase = this.convertToKhmerNumerals(dayInLunarPhase.toString());
+      const buddhistYear = convertToKhmerNumerals((date.getFullYear() + 544).toString());
+
+      // Calculate lunar date dynamically based on a fixed reference point
+      const referenceDate = new Date('2024-01-01'); // Set this to a known lunar date
+      const lunarMonthLength = 30; // Approximate length of a lunar month
+      const daysSinceReference = Math.floor((date - referenceDate) / (1000 * 60 * 60 * 24));
+      const lunarDay = (daysSinceReference % lunarMonthLength) + 1; // Day of the lunar month
+      const lunarPhase = lunarDay <= 15 ? 'កើត' : 'រោច'; // Determine lunar phase
+      const dayInLunarPhase = lunarDay <= 15 ? lunarDay : lunarDay - 15;
+      const khmerDayInLunarPhase = convertToKhmerNumerals(dayInLunarPhase.toString());
+
+      // Return formatted date
       return `${dayOfWeek} ${khmerDayInLunarPhase} ${lunarPhase} ខែ${month} ${year} ឆស័ក ពុទ្ធសករាជ ${buddhistYear} ត្រូវនឹង ថ្ងៃ`;
     },
     convertToKhmerNumerals(number) {

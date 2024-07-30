@@ -10,7 +10,7 @@
         <div class="w-full bg-[#9BC1FF] flex flex-col md:flex-row rounded-tl-lg rounded-tr-lg rounded-br-lg rounded-bl-lg">
           <!-- Left Section -->
           <div class="text-respon box1 w-full md:w-1/3 border-[#0094FF] border-b md:border-b-0 md:border-r p-2 flex flex-col justify-center items-center">
-            <h3 class="text-lg md:text-xl flex gap-2 justify-center items-center">
+            <h3 class="style_font text-lg md:text-xl flex gap-2 justify-center items-center">
               <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />
               {{ item.time }} {{ item["meeting shift"] }}
             </h3>
@@ -18,12 +18,12 @@
 
           <!-- Middle Section -->
           <div class="text-respon box1 w-full md:w-1/2 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
-            <h3 class="text-base md:text-lg pt-5">{{ item.description }}</h3>
+            <h3 class="style_font text-base md:text-lg pt-2 ">{{ item.description }}</h3>
           </div>
 
           <!-- Right Section -->
           <div class="box1 w-full md:w-1/3 p-2 pt-7 rounded-br-lg">
-            <h3 class="text-respon text-style text-lg md:text-xl pl-4">{{ item.roome }}</h3>
+            <h3 class="style_font  text-respon  text-xl md:text-xl pl-5">{{ item.roome }}</h3>
             <!-- Bottom Section -->
             <div class="w-full h-30 bg-[#9BC1FF] flex flex-col md:flex-row justify-between items-center p-5 relative border border-[#0094FF] border-t-0 border-b-0 border-r-0 border-l-0">
               <h3 class="text-style text-base md:text-lg flex gap-2">
@@ -71,6 +71,9 @@ console.log({ stateForm });
 
 <style scoped>
 /* Font Family */
+.style_font {
+  font-size: 21px;
+}
 h1 {
   font-family: 'Khmer OS Muol';
   font-style: normal;
@@ -89,9 +92,9 @@ h3 {
   font-weight: normal;
 }
 
-.text-style {
-  font-size: 16px;
-}
+  .text-style {
+    font-size: 16px;
+  }
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
@@ -127,9 +130,7 @@ h3 {
     justify-content: space-between;
   }
 
-  .text-respon {
-    flex: 1;
-  }
+ 
   
   .box1 {
     flex: 1;
