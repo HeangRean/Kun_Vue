@@ -2,6 +2,7 @@
   {
     "id": 1,
     "name": "នៅ ពិសិដ្ឋ",
+<<<<<<< HEAD
     "description": "លោកជំទាវមិន ធារី អញ្ជើញចូលរួមកិច្ចប្រជុំគណៈកម្មការគ្រប់គ្រងគម្រោងមូលនិធិឃុំអន្លង់វែង នៅសាលាខេត្ត",
     "description_en": "Madam Min Thary is invited to attend the meeting of the Anlong Veng Commune Fund Management Committee at the Provincial Hall.",
     "lead_by": "",
@@ -22,6 +23,14 @@
     "update_by": ""
 }
 ,
+=======
+    "meeting shift": "ព្រឹក",
+    "description": "លោកជំទាវ មិន ធារី អញ្ជើញចូលរួមកិច្ចប្រជុំគណៈកម្មការគ្រប់គ្រងគម្រោងមូលនិធិឃុំអន្លង់វែង នៅសាលាខេត្ត",
+    "status": "pennding",
+    "roome": "នៅសាលាខេត្ត",
+    "related document": "storage/file1.pdf"
+  },
+>>>>>>> 13550d90b0a29d1147afa5253d14fa42f2e039a1
   {
     "id": 2,
     "name": "នៅ ពិសិដ្ឋ",
