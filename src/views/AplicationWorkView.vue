@@ -1,47 +1,55 @@
 <template>
-  <div class="container">
+  <div class="bigcontainer max-w-full relative h-[1500px] bg-red-500 "> 
+  <div class="container max-w-full absolut flex flex-col justify-center items-center">
     <h1 class="title">កម្មវិធីការងារ</h1>
     <h2 class="subtitle">
       <DateTimeComponent />
     </h2>
-
-    <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box">
-      <div class="box">
-        <div class="content">
-          <!-- Left Section -->
-          <div class="box1 left-section">
-            <h3 class="heading">
-              <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />{{ item.time }} {{ item["meeting shift"] }}
-            </h3>
-          </div>
-          
-          <!-- Middle Section -->
-          <div class="box1 middle-section">
-            <h3 class="description">{{ item.description }}</h3>
-          </div>
-          
-          <!-- Right Section -->
-          <div class="box1 right-section">
-            <h3 class="room">{{ item.roome }}</h3>
-            
-            <!-- Bottom Section -->
-            <div class="status-section" @click="downloadFile(item.fileUrl, item.fileName)">
-              <h3 class="file">
-                <Icon :width="28" :height="28" icon="material-symbols:download" />ឯកសារ
+    <div class="w-full bg-blue-500">
+      <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full bg-green-50">
+        <div class="box max-w-full mx-auto">
+          <div class="content w-full">
+            <!-- Left Section -->
+            <div class="box1 left-section">
+              <h3 class="heading">
+                <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />{{ item.time }} {{ item["meeting shift"] }}
               </h3>
+            </div>
 
-              <div class="status">
-                <!-- Meeting Status Toggle -->
-                <div class="status-item mt-3" @click.stop="toggleStatus(index)">
-                  <div v-if="item.status === 'pending'" class="status-icon pending">
-                    <Icon class="icon" style="color: red" icon="icon-park-solid:close"/>
+            <!-- Middle Section -->
+            <div class="box1 middle-section">
+              <h3 class="description">{{ item.description }}</h3>
+            </div>
+
+            <!-- Right Section -->
+            <div class="box1 right-section">
+              <h3 class="room">{{ item.roome }}</h3>
+
+              <!-- Bottom Section -->
+              <div class="status-section" @click="downloadFile(item.fileUrl, item.fileName)">
+                <h3 class="file">
+                  <Icon :width="28" :height="28" icon="material-symbols:download" />ឯកសារ
+                </h3>
+
+                <!-- Meeting Status -->
+                <div class="flex items-center gap-4">
+                  <h3 class="text-base md:text-lg text-[#FF0000]">ពុំទាន់បានប្រជុំ</h3>
+                  <div v-if="item.status === 'pending'" class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
+                    <Icon class="size-4" style="color: green" icon="icon-park-solid:correct"/>
                   </div>
-                  <div v-else class="status-icon done">
-                    <Icon class="icon" style="color: green" icon="icon-park-solid:correct"/>
+                  <div v-else class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
+                    <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:red"/>
                   </div>
-                  <h3 :class="['status-text', { pending: item.status === 'pending', done: item.status === 'done' }]">
-                    {{ item.status === 'pending' ? 'ពុំទាន់' : 'រួចរាល់' }}
-                  </h3>
+                </div>
+                <!-- Meeting Status (Green) -->
+                <div class="flex items-center gap-4">
+                  <h3 class="text-base md:text-lg text-[#008C0E]">បានប្រជុំរួចរាល់</h3>
+                  <div v-if="item.status === 'done'" class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
+                    <Icon class="size-4" style="color:green" icon="icon-park-solid:correct"/>
+                  </div>
+                  <div v-else class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
+                    <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:red"/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -50,6 +58,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script setup>
@@ -74,6 +83,11 @@ const downloadFile = (url, fileName) => {
 </script>
 
 <style scoped>
+.container {
+  width: 100%;
+  position: relative;
+}
+
 /* Font Family */
 .title {
   font-family: 'Khmer OS Muol';
@@ -177,18 +191,21 @@ const downloadFile = (url, fileName) => {
 }
 
 .container {
-  margin-bottom: 3rem;
+  width: 100%;
+  margin-bottom: 4rem;
 }
 
 .main-box {
+  width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 2.5rem;
+  margin-top: 5px;
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
 .box {
   width: 100%;
-  max-width: 1200px;
   background-color: #9BC1FF;
   border-radius: 0.5rem;
   display: flex;
@@ -274,8 +291,8 @@ const downloadFile = (url, fileName) => {
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .content {
-    flex-direction: row;
-  }
+      flex-direction: row;
+    }
 }
 
 /* Large devices (desktops, 992px and up) */
