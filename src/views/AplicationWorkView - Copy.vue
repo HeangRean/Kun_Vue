@@ -1,55 +1,79 @@
 <template>
-  <div class="mb-12 md:mb-24 lg:mb-32">
-    <h1 class="text-center pt-12 mb-5 text-4xl md:text-5xl lg:text-5xl">កម្មវិធីការងារ</h1> 
-    <h2 class="text-center text-lg md:text-xl mb-8">
-      <!-- DateTime Component -->
-      <DateTimeComponent />
-    </h2>
-    
-    <!-- Main Boxes -->
-    <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box flex justify-center pt-10 mt-4 md:mt-0">
-      <div class="box w-full md:w-4/2 lg:w-3/1 mb-[-30px] ">
-        <div class="w-full bg-[#9BC1FF] flex flex-col md:flex-row rounded-tl-lg rounded-tr-lg ">
-          <!-- Left Section -->
-          <div class="box1 w-full md:w-1/3 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
-            <h3 class="text-lg md:text-xl">{{ item.time }} {{ item["meeting shift"] }}</h3>
-          </div>
-          <!-- Middle Section -->
-          <div class="box1 w-full md:w-1/2 border-[#0094FF] border-b md:border-b-0 md:border-r p-2">
-            <h3 class="text-base md:text-lg">{{ item.description }}</h3>
-          </div>
-          <!-- Right Section -->
-          <div class="box1 w-full md:w-1/3 p-2">
-            <h3 class="text-lg md:text-xl">បន្ទប់លេខ៖ {{ item.roome }}</h3>
-          </div>
-        </div>
-        <!-- Bottom Section -->
-        <div class="w-full h-30 bg-[#9BC1FF] flex flex-col md:flex-row justify-between items-center p-5 relative border border-[#0094FF] border-t-[0.5px] border-b-0 border-r-0 border-l-0 rounded-bl-lg rounded-br-lg ">
-          <h3 class="text-base md:text-lg ">ឯកសារពាក់ព័ន្ធ</h3>
-          <div class="flex gap-8 mt-4 md:mt-0">
-            <!-- Meeting Status -->
-            <div class="flex items-center gap-4">
-              <h3 class="text-base md:text-lg text-[#FF0000]">ពុំទាន់បានប្រជុំ</h3>
-              <div v-if="item.status === 'pennding'" class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                <Icon class="size-4" style="color: green" icon="icon-park-solid:correct"/>
+  <div class="bigcontainer max-w-full relative h-[1500px]  ">
+    <div class="container max-w-full absolut flex flex-col justify-center items-center">
+      <h1 class="title">កម្មវិធីការងារ</h1>
+      <h2 class="subtitle">
+        <DateTimeComponent />
+      </h2>
+      <div class="w-full ">
+        <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full">
+          <div class="box max-w-full mx-auto ">
+            <div class="content w-full ">
+              <!-- Left Section -->
+              <div class="box1 left-section left-respon">
+                <h3 class="heading respon-h">
+                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />{{
+                    item.start_datetime }} {{ item["meeting shift"] }}
+                </h3>
               </div>
-              <div v-else class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:red"/>
-              </div>
-            </div>
-            <!-- Meeting Status (Green) -->
-            <div class="flex items-center gap-4">
-              <h3 class="text-base md:text-lg text-[#008C0E]">បានប្រជុំរួចរាល់</h3>
-              <div v-if="item.status === 'done'" class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                <Icon class="size-4" style="color:green" icon="icon-park-solid:correct"/>
-              </div>
-              <div v-else class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:red"/>
-              </div>
-            </div>
 
+              <!-- Middle Section -->
+              <div class="box1 middle-section middle-respon  ">
+                <h3 class="description respon-dec ">{{ item.description }}</h3>
+              </div>
+
+              <div class="box1 right-section relative">
+                <div class="child"></div>
+                <h3 class="room txt-room pt-5">{{ item.venue }}</h3>
+
+                <!-- Bottom Section -->
+                <div class="flex main-respon flex-col"> <!-- Stack vertically on small screens -->
+
+
+                  <!-- Meeting Status and Meeting Status (Green) in a single row -->
+                  <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                    <div class="status-section pt-5" @click="downloadFile(item.fileUrl, item.fileName)">
+                      <h3 class="file font-txt text-h3 pt-5">
+                        <Icon class="respon-file" :width="20" :height="20" icon="material-symbols:download" />ឯកសារ
+                      </h3>
+                    </div>
+              <!-- Add a wrapper for the status sections -->
+<div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
+  <!-- Meeting Status -->
+  <div class="flex items-center gap-4 pl-4 pt-5">
+    <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
+    <div v-if="item.status === 'pending'"
+      class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
+      <Icon class="size-4 all-correct" style="color: green" icon="icon-park-solid:correct" />
+    </div>
+    <div v-else
+      class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
+      <Icon class="size-4 all-correct" style="color: #008C0E" icon="icon-park-solid:red" />
+    </div>
+  </div>
+
+  <!-- Meeting Status (Green) -->
+  <div class="flex items-center gap-4 pl-4 pt-5">
+    <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
+    <div v-if="item.status === 'done'"
+      class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
+      <Icon class="size-4 all-correct" style="color: green" icon="icon-park-solid:correct" />
+    </div>
+    <div v-else
+      class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
+      <Icon class="size-4 all-correct" style="color: #008C0E" icon="icon-park-solid:red" />
+    </div>
+  </div>
+</div>
+
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
           </div>
-          
         </div>
       </div>
     </div>
@@ -62,59 +86,289 @@ import { Icon } from '@iconify/vue';
 import db from "../../db.json";
 import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust the path as needed
 
-// Initialize state with data from db.json or an empty array
 const stateForm = ref(db || []);
-
-// Log stateForm for debugging purposes
 console.log({ stateForm });
+
+const toggleStatus = (index) => {
+  stateForm.value[index].status = stateForm.value[index].status === 'pending' ? 'done' : 'pending';
+};
+
+const downloadFile = (url, fileName) => {
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  link.click();
+};
 </script>
 
 <style scoped>
+.container {
+  width: 100%;
+  position: relative;
+}
+
 /* Font Family */
-h1 {
+.title {
   font-family: 'Khmer OS Muol';
   font-style: normal;
   font-weight: 300;
-  font-size: 12;
+  text-align: center;
+  padding-top: 3rem;
+  margin-bottom: 1.25rem;
+  font-size: 2.25rem;
 }
 
-h2 {
+.subtitle {
   font-family: 'Khmer OS Muol';
   font-style: normal;
   font-weight: 200;
-  font-size: 12;
+  text-align: center;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
 }
 
-h3 {
+.heading {
   font-family: 'Khmer OS Siemreap';
   font-style: normal;
   font-weight: normal;
-  font-size: 12;
+  font-size: 1.20rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  padding-top: 2.5rem;
 }
 
-/* Responsive Styles */
-@media (max-width: 1024px) {
-  .box1 {
-    width: 100%;
-    border-bottom: 1px solid #0094FF; /* Add border-bottom for smaller screens */
-  }
+.description {
+  font-family: 'Khmer OS Siemreap';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.20rem;
+  padding-top: 1.25rem;
+}
 
-  /* Ensure padding and margins are consistent on smaller screens */
-  .box1 h3 {
+.room {
+  font-family: 'Khmer OS Siemreap';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.125rem;
+  padding-left: 1rem;
+}
+
+.file {
+  font-family: 'Khmer OS Siemreap';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: black;
+}
+
+.text-h3 {
+  font-size: 15px;
+  color: red;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.status-text {
+  font-family: 'Khmer OS Siemreap';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.status-text.pending {
+  color: red;
+}
+
+.status-text.done {
+  color: green;
+}
+
+.status-icon {
+  border: 2px solid black;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.pending {
+  color: #FF0000;
+}
+
+.done {
+  color: #008C0E;
+}
+
+.container {
+  width: 100%;
+  margin-bottom: 4rem;
+}
+
+.main-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  box-sizing: border-box;
+  /* Ensure padding and border are included in the element's total width and height */
+}
+
+.box {
+  width: 100%;
+  background-color: #9BC1FF;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-section,
+.middle-section,
+.right-section {
+  border-bottom: 1.20px solid #0094FF;
+  padding: 0.5rem;
+  border-bottom: 0px;
+}
+
+.left-section {
+  border-right: 1px solid #0094FF;
+  flex: 1;
+
+}
+
+.middle-section {
+  border-right: 1px solid #0094FF;
+  flex: 1.2;
+
+}
+
+.right-section {
+  border-bottom: none;
+  border-right: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+
+}
+
+.status-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  cursor: pointer;
+  /* Make sure the section is clickable */
+}
+
+
+/* Mobile devices (375px and smaller) */
+
+/* Mobile devices (375px and smaller) */
+@media (max-width: 375px) {
+  .right-section {
     padding: 0.5rem;
+    text-align: center;
+    /* Center the text within the box */
+    word-wrap: break-word;
+    /* Ensure long words break to fit within the box */
   }
 
-  .main-box {
-    padding-top: 1rem;
+  .right-section .room {
+    font-size: 12px;
+    /* Adjust the font size for better readability */
+    text-align: center;
+    /* Center the text in the room class */
   }
 
-  .flex.flex-col.md\\:flex-row {
-    flex-direction: column;
+  .right-section .status-text {
+    font-size: 10px;
+    /* Adjust font size for status text */
+    text-align: center;
+    /* Center the status text */
+  }
+
+  .right-section .file {
+    font-size: 10px;
+    /* Adjust font size for file text */
+    text-align: center;
+    /* Center the file text */
   }
 }
 
-@media (min-width: 1025px) {
-  .flex.flex-col.md\\:flex-row {
+/* Small devices (576px and smaller) */
+@media (max-width: 576px) {
+  .right-section {
+    padding: 0.75rem;
+    text-align: center;
+    word-wrap: break-word;
+  }
+
+  .right-section .room {
+    font-size: 14px;
+    text-align: center;
+    /* Center the text in the room class */
+  }
+
+  .right-section .status-text {
+    font-size: 12px;
+    /* Adjust font size for status text */
+    text-align: center;
+    /* Center the status text */
+  }
+
+  .right-section .file {
+    font-size: 12px;
+    /* Adjust font size for file text */
+    text-align: center;
+    /* Center the file text */
+  }
+}
+
+
+
+
+/* Tablets (768px to 992px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .status-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status-text {
+    font-size: 0.875rem;
+  }
+}
+
+
+/* Extra large devices (1200px and up) */
+@media (min-width: 1200px) {
+  .content {
     flex-direction: row;
   }
 }

@@ -1,64 +1,83 @@
 <template>
-  <div class="bigcontainer max-w-full relative h-[1500px] bg-red-500 "> 
-  <div class="container max-w-full absolut flex flex-col justify-center items-center">
-    <h1 class="title">កម្មវិធីការងារ</h1>
-    <h2 class="subtitle">
-      <DateTimeComponent />
-    </h2>
-    <div class="w-full bg-blue-500">
-      <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full bg-green-50">
-        <div class="box max-w-full mx-auto">
-          <div class="content w-full">
-            <!-- Left Section -->
-            <div class="box1 left-section">
-              <h3 class="heading">
-                <Icon :width="28" :height="28" icon="fluent-mdl2:date-time" />{{ item.time }} {{ item["meeting shift"] }}
-              </h3>
-            </div>
-
-            <!-- Middle Section -->
-            <div class="box1 middle-section">
-              <h3 class="description">{{ item.description }}</h3>
-            </div>
-
-            <!-- Right Section -->
-            <div class="box1 right-section">
-              <h3 class="room">{{ item.roome }}</h3>
-
-              <!-- Bottom Section -->
-              <div class="status-section" @click="downloadFile(item.fileUrl, item.fileName)">
-                <h3 class="file">
-                  <Icon :width="28" :height="28" icon="material-symbols:download" />ឯកសារ
+  <div class="bigcontainer max-w-full relative h-[1500px]  ">
+    <div class="container max-w-full absolut flex flex-col justify-center items-center">
+      <h1 class="title">កម្មវិធីការងារ</h1>
+      <h2 class="subtitle">
+        <DateTimeComponent />
+      </h2>
+      <div class="w-full ">
+        <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full">
+          <div class="box max-w-full mx-auto ">
+            <div class="content w-full ">
+              <!-- Left Section -->
+              <div class="box1 left-section left-respon">
+                <h3 class="heading respon-h">
+                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />{{
+                    item.start_datetime }} {{ item["meeting shift"] }}
                 </h3>
+              </div>
 
-                <!-- Meeting Status -->
-                <div class="flex items-center gap-4">
-                  <h3 class="text-base md:text-lg text-[#FF0000]">ពុំទាន់បានប្រជុំ</h3>
-                  <div v-if="item.status === 'pending'" class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                    <Icon class="size-4" style="color: green" icon="icon-park-solid:correct"/>
+              <!-- Middle Section -->
+              <div class="box1 middle-section middle-respon  ">
+                <h3 class="description respon-dec ">{{ item.description }}</h3>
+              </div>
+
+              <div class="box1 right-section relative">
+                <div class="child"></div>
+                <h3 class="room txt-room pt-5">{{ item.venue }}</h3>
+
+                <!-- Bottom Section -->
+                <div class="flex main-respon flex-col"> <!-- Stack vertically on small screens -->
+
+
+                  <!-- Meeting Status and Meeting Status (Green) in a single row -->
+                  <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                    <div class="status-section pt-5" @click="downloadFile(item.fileUrl, item.fileName)">
+                      <h3 class="file font-txt text-h3 pt-5">
+                        <Icon class="respon-file" :width="20" :height="20" icon="material-symbols:download" />ឯកសារ
+                      </h3>
+                    </div>
+                                    <!-- Add a wrapper for the status sections -->
+                      <div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                        <!-- Meeting Status -->
+                        <div class="flex items-center gap-4 pl-4 pt-5">
+                          <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
+                          <div v-if="item.status === 'pending'"
+                            class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
+                            <Icon class="size-4 all-correct" style="color: green" icon="icon-park-solid:correct" />
+                          </div>
+                          <div v-else
+                            class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
+                            <Icon class="size-4 all-correct" style="color: #008C0E" icon="icon-park-solid:red" />
+                          </div>
+                        </div>
+
+                        <!-- Meeting Status (Green) -->
+                        <div class="flex items-center gap-4 pl-4 pt-5">
+                          <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
+                          <div v-if="item.status === 'done'"
+                            class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
+                            <Icon class="size-4 all-correct" style="color: green" icon="icon-park-solid:correct" />
+                          </div>
+                          <div v-else
+                            class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
+                            <Icon class="size-4 all-correct" style="color: #008C0E" icon="icon-park-solid:red" />
+                          </div>
+                        </div>
+                      </div>
+
+
                   </div>
-                  <div v-else class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                    <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:red"/>
-                  </div>
-                </div>
-                <!-- Meeting Status (Green) -->
-                <div class="flex items-center gap-4">
-                  <h3 class="text-base md:text-lg text-[#008C0E]">បានប្រជុំរួចរាល់</h3>
-                  <div v-if="item.status === 'done'" class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                    <Icon class="size-4" style="color:green" icon="icon-park-solid:correct"/>
-                  </div>
-                  <div v-else class="border-2 border-black rounded-full w-6 h-6 flex justify-center items-center">
-                    <Icon class="size-4" style="color: #008C0E" icon="icon-park-solid:red"/>
-                  </div>
+
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script setup>
@@ -146,6 +165,11 @@ const downloadFile = (url, fileName) => {
   color: black;
 }
 
+.text-h3 {
+  font-size: 15px;
+  color: red;
+}
+
 .status-item {
   display: flex;
   align-items: center;
@@ -157,7 +181,7 @@ const downloadFile = (url, fileName) => {
   font-family: 'Khmer OS Siemreap';
   font-style: normal;
   font-weight: normal;
-  font-size: 1rem;
+  font-size: 15px;
 }
 
 .status-text.pending {
@@ -201,7 +225,8 @@ const downloadFile = (url, fileName) => {
   align-items: center;
   justify-content: center;
   margin-top: 5px;
-  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  box-sizing: border-box;
+  /* Ensure padding and border are included in the element's total width and height */
 }
 
 .box {
@@ -223,22 +248,30 @@ const downloadFile = (url, fileName) => {
 .right-section {
   border-bottom: 1.20px solid #0094FF;
   padding: 0.5rem;
+  border-bottom: 0px;
 }
 
 .left-section {
   border-right: 1px solid #0094FF;
   flex: 1;
+
 }
 
 .middle-section {
   border-right: 1px solid #0094FF;
-  flex: 2;
+  flex: 1.2;
+
 }
 
 .right-section {
   border-bottom: none;
   border-right: none;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+
 }
 
 .status-section {
@@ -247,62 +280,96 @@ const downloadFile = (url, fileName) => {
   justify-content: space-between;
   align-items: center;
   padding: 1.25rem;
-  border-top: 1px solid #0094FF;
-  cursor: pointer; /* Make sure the section is clickable */
+  cursor: pointer;
+  /* Make sure the section is clickable */
 }
 
-/* Responsive Styles */
-/* Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {
-  .title {
-    font-size: 1.875rem;
+
+/* Mobile devices (375px and smaller) */
+
+/* Mobile devices (375px and smaller) */
+@media (max-width: 375px) {
+ 
+  .right-section {
+    padding: 0.5rem;
+    text-align: center;
+    /* Center the text within the box */
+    word-wrap: break-word;
+    /* Ensure long words break to fit within the box */
   }
 
-  .subtitle {
-    font-size: 1rem;
+  .right-section .room {
+    font-size: 12px;
+    /* Adjust the font size for better readability */
+    text-align: center;
+    /* Center the text in the room class */
+   
   }
 
-  .heading {
-    font-size: 1rem;
+  .right-section .status-text {
+    font-size: 10px;
+    /* Adjust font size for status text */
+    text-align: center;
+    /* Center the status text */
   }
 
-  .description {
-    font-size: 0.875rem;
+  .right-section .file {
+    font-size: 10px;
+    /* Adjust font size for file text */
+    text-align: center;
+    /* Center the file text */
+  }
+  
+}
+
+/* Small devices (576px and smaller) */
+@media (max-width: 576px) {
+  .right-section {
+    padding: 0.75rem;
+    text-align: center;
+    word-wrap: break-word;
   }
 
-  .room {
-    font-size: 1rem;
+  .right-section .room {
+    font-size: 14px;
+    text-align: center;
+    /* Center the text in the room class */
   }
 
-  .file {
-    font-size: 0.875rem;
+  .right-section .status-text {
+    font-size: 12px;
+    /* Adjust font size for status text */
+    text-align: center;
+    /* Center the status text */
+  }
+
+  .right-section .file {
+    font-size: 12px;
+    /* Adjust font size for file text */
+    text-align: center;
+    /* Center the file text */
+  }
+}
+
+
+
+
+/* Tablets (768px to 992px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .status-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .status-text {
     font-size: 0.875rem;
   }
-
-  .status-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
 }
 
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .content {
-      flex-direction: row;
-    }
-}
 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .content {
-    flex-direction: row;
-  }
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
+/* Extra large devices (1200px and up) */
 @media (min-width: 1200px) {
   .content {
     flex-direction: row;

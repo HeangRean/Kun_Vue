@@ -64,4 +64,5 @@ import { Icon } from '@iconify/vue';
 
 <style scoped>
 /* Add any additional styles if necessary */
+
 </style>
