@@ -12,13 +12,13 @@
               <!-- Left Section -->
               <div class="box1 left-section left-respon">
                 <h3 class="heading respon-h">
-                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time"/>
+                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />
                   {{item.start_datetime }} {{ item["meeting shift"] }}
                 </h3>
               </div>
 
               <!-- Middle Section -->
-              <div class="box1 middle-section middle-respon">
+              <div class="box1 middle-section middle-respon  ">
 
                 <h3 class="description respon-dec ">
                   <b>
