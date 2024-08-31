@@ -1,5 +1,5 @@
 <template>
-  <div class="bigcontainer max-w-full relative h-[1500px]  ">
+  <div class="bigcontainer max-w-full relative h-[1700px]  ">
     <div class="container max-w-full absolut flex flex-col justify-center items-center">
       <h1 class="title">កម្មវិធីការងារ</h1>
       <h2 class="subtitle">
@@ -12,13 +12,13 @@
               <!-- Left Section -->
               <div class="box1 left-section left-respon">
                 <h3 class="heading respon-h">
-                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />
+                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time"/>
                   {{item.start_datetime }} {{ item["meeting shift"] }}
                 </h3>
               </div>
 
               <!-- Middle Section -->
-              <div class="box1 middle-section middle-respon  ">
+              <div class="box1 middle-section middle-respon">
 
                 <h3 class="description respon-dec ">
                   <b>
@@ -306,42 +306,56 @@ const downloadFile = (url, fileName) => {
 /* Mobile devices (375px and smaller) */
 
 /* Mobile devices (375px and smaller) */
+/* Mobile devices (375px and smaller) */
 @media (max-width: 375px) {
 
-  .right-section {
-    padding: 0.5rem;
-    text-align: center;
-    /* Center the text within the box */
-    word-wrap: break-word;
-    /* Ensure long words break to fit within the box */
-  }
-
-  .right-section .room {
-    font-size: 12px;
-    /* Adjust the font size for better readability */
-    text-align: center;
-    /* Center the text in the room class */
-   
-  }
-
-  .right-section .status-text {
-    font-size: 10px;
-    /* Adjust font size for status text */
-    text-align: center;
-    /* Center the status text */
-  }
-
-  .right-section .file {
-    font-size: 10px;
-    /* Adjust font size for file text */
-    text-align: center;
-    /* Center the file text */
-  }
-  
+.content {
+  flex-direction: column;
 }
+
+.left-section, .middle-section, .right-section {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.left-section .heading, 
+.middle-section .description, 
+.right-section .room, 
+.right-section .status-text, 
+.right-section .file {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.status-wrapper {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: center;
+}
+
+.status-text {
+  font-size: 10px;
+}
+
+.icon {
+  font-size: 20px;
+}
+}
+
+@media (min-width: 424px) and (max-width: 499px) {
+  .left-section {
+    flex: 1.2;
+    color: red;
+  }
+}
+
 
 /* Small devices (576px and smaller) */
 @media (max-width: 576px) {
+  .left-section {
+    flex: 1.1;
+    color: red;
+  }
   .right-section {
     padding: 0.75rem;
     text-align: center;
