@@ -37,8 +37,8 @@
                   <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
                     <div class="status-section pt-5" @click="downloadFile(item.fileUrl, item.fileName)">
                       <h3 class="file font-txt text-h3 pt-5" :class="{
-                        'text-blue-800': item['related document'] && item['related document'] !== '',
-                        'text-black': !item['related document'] || item['related document'] === ''
+                        'text-blue-800': item['related_document'] && item['related_document'] !== '',
+                        'text-black': !item['related_document'] || item['related_document'] === ''
                       }">
                         <Icon class="respon-file respon-text" :width="20" :height="20"
                           icon="material-symbols:download" />
@@ -296,6 +296,7 @@ const downloadFile = (url, fileName) => {
       padding: 0.5rem;
       text-align: center;
     }
+    
 
     .left-section .heading, 
     .middle-section .description, 
@@ -321,14 +322,15 @@ const downloadFile = (url, fileName) => {
     }
   }
 
-  @media (min-width: 376px) and (max-width: 576px) {
+  @media (min-width: 375px) and (max-width: 576px) {
     .content {
       flex-direction: row;
     }
 
+
     .left-section, .middle-section, .right-section {
       padding: 0.8rem;
-      text-align: center;
+      text-align: start;
     }
 
     .left-section .heading {
