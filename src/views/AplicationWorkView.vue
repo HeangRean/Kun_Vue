@@ -37,7 +37,7 @@
                   <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
                     <div class="status-section pt-5" @click="downloadFile(item.fileUrl, item.fileName)">
                       <h3 class="file font-txt text-h3 pt-5" :class="{
-                        'text-[#008C0E]': item['related document'] && item['related document'] !== '',
+                        'text-blue-800': item['related document'] && item['related document'] !== '',
                         'text-black': !item['related document'] || item['related document'] === ''
                       }">
                         <Icon class="respon-file respon-text" :width="20" :height="20"
@@ -123,12 +123,13 @@ const downloadFile = (url, fileName) => {
 
   /* Font Family */
   .title, .subtitle, .heading, .description, .room, .file, .status-text {
-    font-family: 'Khmer OS Muol', sans-serif;
+    font-family: 'Khmer OS Siemreap', sans-serif;
     font-style: normal;
     font-weight: normal;
   }
 
   .title {
+    font-family: 'Khmer OS Muol', sans-serif;
     font-weight: 300;
     text-align: center;
     padding-top: 3rem;
@@ -185,7 +186,7 @@ const downloadFile = (url, fileName) => {
   }
 
   .status-text {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .status-text.pending {
