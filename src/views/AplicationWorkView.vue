@@ -12,7 +12,7 @@
               <!-- Left Section -->
               <div class="box1 left-section left-respon">
                 <h3 class="heading respon-h">
-                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />
+                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time"/>
                   {{ item.start_datetime }} {{ item["meeting shift"] }}
                 </h3>
               </div>
@@ -52,32 +52,42 @@
 
                     <!-- Add a wrapper for the status sections -->
                     <div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
-                      <!-- Meeting Status -->
-                      <div class="flex items-center gap-4 pl-4 pt-5">
-                        <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
-                        <div v-if="item.status === 'pending'"
-                          class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
-                          <Icon class="size-4 all-correct" style="color: green" icon="icon-park-solid:correct" />
-                        </div>
-                        <div v-else
-                          class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
-                          <Icon class="size-4 all-correct" style="color: #008C0E" icon="icon-park-solid:red" />
-                        </div>
-                      </div>
+  <!-- Meeting Status (Pending) -->
+  <div class="flex items-center gap-4 pl-4 pt-5">
+    <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
+    <div
+      class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center"
+    >
+      <Icon
+        class="size-4 all-correct"
+        :style="{
+          color: item.is_public !== 1 || item.is_cancelled !== 0 ? '#FF0000' : '#D3D3D3'
+        }"
+        :icon="item.is_public !== 1 || item.is_cancelled !== 0 ? 'icon-park-solid:correct' : 'icon-park-solid:red'"
+      />
+    </div>
+  </div>
 
-                      <!-- Meeting Status (Green) -->
-                      <div class="flex items-center gap-4 pl-4 pt-5">
-                        <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
-                        <div v-if="item.status === 'done'"
-                          class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
-                          <Icon class="size-4 all-correct" style="color: green" icon="icon-park-solid:correct" />
-                        </div>
-                        <div v-else
-                          class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center circle">
-                          <Icon class="size-4 all-correct" style="color: #008C0E" icon="icon-park-solid:red" />
-                        </div>
-                      </div>
-                    </div>
+  <!-- Meeting Status (Done) -->
+  <div class="flex items-center gap-4 pl-4 pt-5">
+    <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
+    <div
+      class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center"
+    >
+      <Icon
+        class="size-4 all-correct"
+        :style="{
+          color: item.is_public === 1 && item.is_cancelled === 0 ? '#008C0E' : '#D3D3D3'
+        }"
+        :icon="item.is_public === 1 && item.is_cancelled === 0 ? 'icon-park-solid:correct' : 'icon-park-solid:minus'"
+      />
+    </div>
+  </div>
+</div>
+
+
+
+                    
                   </div>
                 </div>
               </div>
