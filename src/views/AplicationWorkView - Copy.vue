@@ -12,14 +12,13 @@
               <!-- Left Section -->
               <div class="box1 left-section left-respon">
                 <h3 class="heading respon-h">
-                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time"/>
+                  <Icon class="icon-respon" :width="28" :="28" icon="fluent-mdl2:date-time"/>
                   {{item.start_datetime }} {{ item["meeting shift"] }}
                 </h3>
               </div>
 
               <!-- Middle Section -->
               <div class="box1 middle-section middle-respon">
-
                 <h3 class="description respon-dec ">
                   <b>
                     {{ item.nickname }}
@@ -36,7 +35,7 @@
 
               <div class="box1 right-section relative">
                 <div class="child"></div>
-                <h3 class="room txt-room pt-5">{{ item.venue }}</h3>
+                <h3 class=" room txt-room pt-5">{{ item.venue }}</h3>
 
                 <!-- Bottom Section -->
                 <div class="flex main-respon flex-col"> <!-- Stack vertically on small screens -->
@@ -46,7 +45,7 @@
                   <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
                     <div class="status-section pt-5" @click="downloadFile(item.fileUrl, item.fileName)">
                       <h3 class="file font-txt text-h3 pt-5">
-                        <Icon class="respon-file" :width="20" :height="20" icon="material-symbols:download" />ឯកសារ
+                        <Icon class="respon-file respon-text " :width="20" :height="20" icon="material-symbols:download" />ឯកសារ
                       </h3>
                     </div>
                                     <!-- Add a wrapper for the status sections -->
@@ -275,7 +274,7 @@ const downloadFile = (url, fileName) => {
 
 .middle-section {
   border-right: 1px solid #0094FF;
-  flex: 1.2;
+  flex: 3;
   padding: 10px;
 
 }
@@ -308,7 +307,6 @@ const downloadFile = (url, fileName) => {
 /* Mobile devices (375px and smaller) */
 /* Mobile devices (375px and smaller) */
 @media (max-width: 375px) {
-
 .content {
   flex-direction: column;
 }
@@ -325,7 +323,9 @@ const downloadFile = (url, fileName) => {
 .right-section .file {
   font-size: 12px;
   line-height: 1.2;
+  
 }
+
 
 .status-wrapper {
   flex-direction: column;
@@ -342,20 +342,62 @@ const downloadFile = (url, fileName) => {
 }
 }
 
-@media (min-width: 424px) and (max-width: 499px) {
-  .left-section {
-    flex: 1.2;
-    color: red;
+@media (min-width: 375px) and (max-width: 576px) {
+  .content {
+    flex-direction: row;
   }
+
+  .left-section, .middle-section, .right-section {
+    padding: 0.8rem;
+    text-align: center;
+
+  }
+
+
+  .left-section .heading {
+  display: flex;
+  align-items: center; /* Center icon and text vertically */
+  flex-wrap: wrap; /* Allow text to wrap if it's too long */
+}
+
+.icon-respon {
+  width: 28px;
+  height: 28px;
+  margin-right: 0.5rem; /* Space between icon and text */
+}
+
+.heading span {
+  word-break: break-word; /* Break long words */
+}
+
+
+  .status-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+  }
+  .room.txt-room.pt-5 {
+    
+    font-size: 18px; /* Adjust for smaller screens */
+    margin-top: 0.8rem; /* Adjust top margin for smaller screens */
+  }
+
 }
 
 
 /* Small devices (576px and smaller) */
-@media (max-width: 576px) {
-  .left-section {
-    flex: 1.1;
-    color: red;
+@media (min-width: 576px) and (max-width: 768px) {
+  .left-section, .middle-section, .right-section {
+  
+    text-align: center;
+
   }
+  .left-section .heading {
+  display: flex;
+  align-items: center; /* Center icon and text vertically */
+  flex-wrap: wrap; /* Allow text to wrap if it's too long */
+}
+
   .right-section {
     padding: 0.75rem;
     text-align: center;
@@ -363,7 +405,7 @@ const downloadFile = (url, fileName) => {
   }
 
   .right-section .room {
-    font-size: 14px;
+    font-size: 18px;
     text-align: center;
     /* Center the text in the room class */
   }
@@ -386,8 +428,26 @@ const downloadFile = (url, fileName) => {
 
 
 
-/* Tablets (768px to 992px) */
+/* Tablets (768px to  1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
+  .content {
+    flex-direction: row;
+    padding: 5px;
+  }
+  .left-section, .middle-section, .right-section {
+  padding-left: 12px;
+  text-align: center;
+
+}
+  .left-section .heading {
+  display: flex;
+  align-items: center; /* Center icon and text vertically */
+  flex-wrap: wrap; /* Allow text to wrap if it's too long */
+}
+.right-section {
+   flex: 1.7;
+}
+
   .status-wrapper {
     display: flex;
     flex-direction: row;
@@ -395,9 +455,26 @@ const downloadFile = (url, fileName) => {
     align-items: center;
   }
 
-  .status-text {
-    font-size: 0.875rem;
+
+}
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .left-section, .middle-section, .right-section {
+  padding-left: 12px;
+  text-align: center;
+
+}
+  .left-section .heading {
+  display: flex;
+  align-items: center; /* Center icon and text vertically */
+  flex-wrap: wrap; /* Allow text to wrap if it's too long */
+}
+    .content {
+    flex-direction: row;
+    padding: 5px;
   }
+  .right-section {
+   flex: 1.7;
+}
 }
 
 
