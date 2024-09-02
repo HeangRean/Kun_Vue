@@ -37,7 +37,7 @@
                   <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
 
                     <div class="status-section pt-5" :class="{ 'cursor-pointer': item.related_document }"
-                      @click="item.related_document ? downloadFile(item.related_document, 'Related Document.pdf') : null">
+                      @click="item.related_document ? downloadFile(item.related_document,item.filename) : null">
                       <h3 class="file font-txt text-h3 pt-5" :class="{
                         'text-blue-800': item.related_document && item.related_document !== '',
                         'text-black': !item.related_document || item.related_document === ''
