@@ -55,7 +55,7 @@ export default {
       const buddhistYear = convertToKhmerNumerals((date.getFullYear() + 544).toString());
 
       // Calculate lunar date dynamically based on a fixed reference point
-      const referenceDate = new Date('2024-01-01'); // Set this to a known lunar date
+      const referenceDate = new Date('2024-01-08'); // Set this to a known lunar date
       const lunarMonthLength = 30; // Approximate length of a lunar month
       const daysSinceReference = Math.floor((date - referenceDate) / (1000 * 60 * 60 * 24));
       const lunarDay = (daysSinceReference % lunarMonthLength) + 1; // Day of the lunar month

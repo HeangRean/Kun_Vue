@@ -51,60 +51,27 @@ const formLogin = ref({
 
 const router = useRouter();
 
-const login = async () => {
-  try {
-    const response = await axios.post('https://api.pis3th.info/api/login', formLogin.value, {
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      }
-    });
-
-    // Check for successful response
-    if (response.status === 200) {
-      const { access_token } = response.data;
-
-      // Save the token to localStorage
-      localStorage.setItem('authToken', access_token);
-
-      // Optionally set token for future requests
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
-      // Redirect to the dashboard or another page on successful login
-      router.push('/AplicationWorkView');
-    } else {
-      // Handle unexpected status codes
-      console.error('Unexpected response status:', response.status, 'Response:', response.data);
-      alert('An unexpected error occurred. Please try again.');
+const login = () => {
+  axios.post('https://api.pis3th.info/api/login', formLogin.value, {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8" // Ensure charset is included
     }
-  } catch (error) {
-    if (error.response) {
-      console.error('API Error:', error.response);
-
-      // Extract and display specific error messages based on status code
-      if (error.response.status === 422) {
-        // Display validation errors
-        const errors = error.response.data.errors || {};
-        const messages = Object.values(errors).flat().join(', ');
-        alert(`Validation Error: ${messages}`);
-      } else if (error.response.status === 400) {
-        // Display bad request errors
-        const message = error.response.data.message || 'An error occurred. Please check your input.';
-        alert(`Bad Request: ${message}`);
-      } else {
-        alert(`Error ${error.response.status}: ${error.response.data.message || 'An unexpected error occurred.'}`);
-      }
-    } else if (error.request) {
-      console.error('No response received:', error.request);
-      alert('Network Error: No response received from the server.');
-    } else {
-      console.error('Error setting up request:', error.message);
-      alert('Error setting up request: ' + error.message);
+  }).then((res) => {
+    console.log(res.data);
+    if (res.data.status == 200) {
+      console.log(res.data);
+      // Handle successful login
+      // Example: router.push('/dashboard'); // Redirect to another page on successful login
     }
-  }
+  }).catch((error) => {
+    console.log(error);
+    if (error.response.status == 422) {
+      alert(error.response.data.error.password + "," + error.response.data.error.username);
+    } else if (error.response.status == 400) {
+      alert(error.response.data.message);
+    }
+  });
 };
-
-
-
 </script>
 
 <style scoped>

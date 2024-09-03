@@ -1,6 +1,6 @@
 <template>
   <div class="bigcontainer max-w-full relative">
-    <div class="container max-w-full  absolut flex flex-col justify-center items-center">
+    <div class="container max-w-full absolut flex flex-col justify-center items-center">
       <h1 class="title">កម្មវិធីការងារ</h1>
       <h2 class="subtitle">
         <DateTimeComponent />
@@ -124,7 +124,7 @@ const downloadFile = (url, fileName) => {
 
 .bigcontainer {
   max-width: 100%;
-
+  height: 1700px;
   /* Adjust as needed */
   position: relative;
 }

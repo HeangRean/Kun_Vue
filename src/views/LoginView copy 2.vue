@@ -51,7 +51,7 @@ const formLogin = ref({
 
 const router = useRouter();
 
-const login = async () => {
+const login = async () => { 
   try {
     const response = await axios.post('https://api.pis3th.info/api/login', formLogin.value, {
       headers: {
@@ -77,19 +77,15 @@ const login = async () => {
       alert('An unexpected error occurred. Please try again.');
     }
   } catch (error) {
+    // Enhanced error handling
     if (error.response) {
       console.error('API Error:', error.response);
-
-      // Extract and display specific error messages based on status code
+      
+      // Provide specific error messages based on status code
       if (error.response.status === 422) {
-        // Display validation errors
-        const errors = error.response.data.errors || {};
-        const messages = Object.values(errors).flat().join(', ');
-        alert(`Validation Error: ${messages}`);
+        alert(`Validation Error: ${error.response.data.error.password || ''} ${error.response.data.error.username || ''}`);
       } else if (error.response.status === 400) {
-        // Display bad request errors
-        const message = error.response.data.message || 'An error occurred. Please check your input.';
-        alert(`Bad Request: ${message}`);
+        alert(`Bad Request: ${error.response.data.message || 'An error occurred.'}`);
       } else {
         alert(`Error ${error.response.status}: ${error.response.data.message || 'An unexpected error occurred.'}`);
       }
@@ -102,7 +98,6 @@ const login = async () => {
     }
   }
 };
-
 
 
 </script>

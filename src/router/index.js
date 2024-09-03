@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
 
 const router = createRouter({
@@ -8,54 +8,59 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: HomeView
     },
     {
       path: '/News',
       name: 'News',
-      component: () => import('../views/Latest_News.vue'),
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Latest_News.vue')
     },
     {
       path: '/Details',
       name: 'Details',
-      component: () => import('../views/DetailsView.vue'),
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/DetailsView.vue')
     },
     {
       path: '/DetailsView1',
       name: 'DetailsView1',
-      component: () => import('../views/DetailsView1.vue'),
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/DetailsView1.vue')
     },
     {
       path: '/AplicationWorkView',
       name: 'AplicationWorkView',
-      component: () => import('../views/AplicationWorkView.vue'),
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AplicationWorkView.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/RegisterView.vue'),
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/RegisterView.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue'),
-    },
-    {
-      path: '/cms-dashboard',
-      name: 'CmsDashboard',
-      // Lazy-loaded when the route is visited
-      component: () => import('../views/CmsDashboard.vue'),
-    },
-    {
-      path: '/admin-dashboard',
-      name: 'AdminDashboard',
-      // Lazy-loaded when the route is visited
-      component: () => import('../views/AdminDashboard.vue'),
-    },
-  ],
-});
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/LoginView.vue')
+    }
+  ]
+})
+
+export default router
 
 
-
-
-export default router;

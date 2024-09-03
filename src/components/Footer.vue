@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue';
 </script>
 
 <template>
-  <footer class="bg-white py-10 border border-r-0 border-l-0 border-b-0">
+  <footer class="bg-white py-10 border border-r-0 border-l-0 border-b-0 box">
     <div class="px-4 md:px-8 lg:px-12">
       <ul class="flex flex-col md:flex-row justify-between items-center gap-8 text-center">
         <div class="flex gap-5 justify-center">
@@ -24,7 +24,7 @@ import { Icon } from '@iconify/vue';
               <Icon class="w-6 h-6 md:w-8 md:h-8" icon="logos:youtube-icon" />
             </li>
             <li class="flex items-center gap-2">
-              <Icon class="w-6 h-6 md:w-8 md:h-8" icon="twemoji:flag-cambodia" />
+              <Icon class="w-6 h-6 md:w-8 md:h-8" icon="twemoji:flag-cambodia"/>
             </li>
           </ul>
         </div>
