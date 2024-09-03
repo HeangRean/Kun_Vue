@@ -45,6 +45,9 @@
             <button class="bg-white text-orange-500 hover:bg-gray-100 font-semibold py-1 px-2 md:py-2 md:px-4 rounded">
               <RouterLink to="/register">Register</RouterLink>
             </button>
+            <!-- Logout Button -->
+
+
           </li>
           <!-- Login Button -->
           <li>

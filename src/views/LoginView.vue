@@ -23,22 +23,27 @@
           autocomplete="current-password" />
       </div>
 
-     <!-- Login Button -->
-<button type="button" @click="login" :disabled="loading" title="Submit login form"
-  class="w-full bg-[#F4A517] text-white font-semibold py-2 px-4 rounded hover:bg-[#e4ac42]">
-  <span v-if="loading">Logging in...</span>
-  <span v-else>Login</span>
-</button>
-
+      <!-- Login Button -->
+      <button type="button" @click="login" :disabled="loading" title="Submit login form"
+        class="w-full bg-[#F4A517] text-white font-semibold py-2 px-4 rounded hover:bg-[#e4ac42]">
+        <span v-if="loading">Logging in...</span>
+        <span v-else>Login</span>
+      </button>
 
       <!-- Register Link -->
       <p class="text-center text-sm text-gray-600 mt-4">
         Don't have an account?
         <RouterLink to="/register" class="text-indigo-600 hover:underline">Register</RouterLink>
       </p>
+
+      <!-- Logout Button (Optional) -->
+      <button type="button" @click="logout" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 mt-4">
+        Logout
+      </button>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue';
@@ -53,8 +58,19 @@ const formLogin = ref({
 
 const router = useRouter();
 
-
 const loading = ref(false);
+
+// Logout function
+const logout = () => {
+  // Remove token from localStorage
+  localStorage.removeItem('authToken');
+  
+  // Clear the Authorization header
+  delete axios.defaults.headers.common['Authorization'];
+
+  // Optionally, redirect the user to the login page
+  router.push('/login'); // Adjust the path as needed
+};
 
 const login = async () => {
   loading.value = true;
@@ -72,7 +88,7 @@ const login = async () => {
       // Save the token to localStorage
       localStorage.setItem('authToken', access_token);
 
-      // Optionally set token for future requests
+      // Set token for future requests
       axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
 
       // Redirect to the dashboard or another page on successful login
@@ -105,11 +121,9 @@ const login = async () => {
     loading.value = false;
   }
 };
-
-
-
-
 </script>
+
+
 
 <style scoped>
 body {
