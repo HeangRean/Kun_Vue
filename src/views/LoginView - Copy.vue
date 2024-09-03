@@ -23,13 +23,11 @@
           autocomplete="current-password" />
       </div>
 
-     <!-- Login Button -->
-<button type="button" @click="login" :disabled="loading" title="Submit login form"
-  class="w-full bg-[#F4A517] text-white font-semibold py-2 px-4 rounded hover:bg-[#e4ac42]">
-  <span v-if="loading">Logging in...</span>
-  <span v-else>Login</span>
-</button>
-
+      <!-- Login Button -->
+      <button type="button" @click="login" title="Submit login form"
+        class="w-full bg-[#F4A517] text-white font-semibold py-2 px-4 rounded hover:bg-[#e4ac42]">
+        Login
+      </button>
 
       <!-- Register Link -->
       <p class="text-center text-sm text-gray-600 mt-4">
@@ -53,11 +51,7 @@ const formLogin = ref({
 
 const router = useRouter();
 
-
-const loading = ref(false);
-
 const login = async () => {
-  loading.value = true;
   try {
     const response = await axios.post('https://api.pis3th.info/api/login', formLogin.value, {
       headers: {
@@ -78,17 +72,22 @@ const login = async () => {
       // Redirect to the dashboard or another page on successful login
       router.push('/AplicationWorkView');
     } else {
+      // Handle unexpected status codes
       console.error('Unexpected response status:', response.status, 'Response:', response.data);
       alert('An unexpected error occurred. Please try again.');
     }
   } catch (error) {
     if (error.response) {
       console.error('API Error:', error.response);
+
+      // Extract and display specific error messages based on status code
       if (error.response.status === 422) {
+        // Display validation errors
         const errors = error.response.data.errors || {};
         const messages = Object.values(errors).flat().join(', ');
         alert(`Validation Error: ${messages}`);
       } else if (error.response.status === 400) {
+        // Display bad request errors
         const message = error.response.data.message || 'An error occurred. Please check your input.';
         alert(`Bad Request: ${message}`);
       } else {
@@ -101,11 +100,8 @@ const login = async () => {
       console.error('Error setting up request:', error.message);
       alert('Error setting up request: ' + error.message);
     }
-  } finally {
-    loading.value = false;
   }
 };
-
 
 
 
