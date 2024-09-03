@@ -1,12 +1,12 @@
 <template>
   <div class="bigcontainer max-w-full relative">
-    <div class="container max-w-full absolut flex flex-col justify-center items-center">
+    <div class="container max-w-full  absolut flex flex-col justify-center items-center">
       <h1 class="title">កម្មវិធីការងារ</h1>
       <h2 class="subtitle">
         <DateTimeComponent />
       </h2>
       <div class="w-full">
-        <div v-if="stateForm.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full">
+        <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full">
           <div class="box max-w-full mx-auto">
             <div class="content w-full">
               <!-- Left Section -->
@@ -20,7 +20,9 @@
               <!-- Middle Section -->
              <div class="box1 middle-section  border-b-0">
                 <h3 class="description respon-dec ">
-                
+                  <b style="font-family: 'Khmer OS Muol', sans-serif;">{{ item.nickname }}</b>
+                  {{ item.between }}
+                  <b style="font-family: 'Khmer OS Muol', sans-serif;">{{ item.nickname1 }}</b>
                   {{ item.description }}
                 </h3>
               </div>
@@ -35,7 +37,7 @@
                   <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
 
                     <div class="status-section pt-5" :class="{ 'cursor-pointer': item.related_document }"
-                      @click="item.related_document ? downloadFile(item.related_document, item.filename) : null">
+                      @click="item.related_document ? downloadFile(item.related_document,item.filename) : null">
                       <h3 class="file font-txt text-h3 pt-5" :class="{
                         'text-blue-800': item.related_document && item.related_document !== '',
                         'text-black': !item.related_document || item.related_document === ''
@@ -91,51 +93,14 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
+import db from "../../db.json";
 import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust the path as needed
-import axios from 'axios';
 
-
-const stateForm = ref([]);
-const fetchData = async () => {
-  try {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      throw new Error('No token found. Please log in.');
-    }
-
-    const response = await axios.get('https://api.pis3th.info/api/meetings', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-    });
-
-    console.log('API Response:', response); // Log the entire response object
-
-    // Access the nested data correctly
-    if (response.data && response.data.data && Array.isArray(response.data.data)) {
-      stateForm.value = response.data.data;
-    } else {
-      console.warn('Unexpected data format:', response.data);
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error.response || error.message); // Improved error logging
-    alert('Error fetching data. Please log in again.');
-  }
-};
-
-
-
-
-
-
-onMounted(() => {
-  fetchData(); // Fetch data when component is mounted
-});
+const stateForm = ref(db || []);
+console.log({ stateForm });
 
 const toggleStatus = (index) => {
   stateForm.value[index].status = stateForm.value[index].status === 'pending' ? 'done' : 'pending';
@@ -148,7 +113,6 @@ const downloadFile = (url, fileName) => {
   link.click();
 };
 </script>
-
 
 <style scoped>
 /* General Container */
