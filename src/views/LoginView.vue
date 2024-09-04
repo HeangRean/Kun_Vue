@@ -24,7 +24,7 @@
       </div>
 
       <!-- Login Button -->
-      <button type="button" @click="login" :disabled="loading" title="Submit login form"
+      <button type="button" @click="handleLogin" :disabled="loading" title="Submit login form"
         class="w-full bg-[#F4A517] text-white font-semibold py-2 px-4 rounded hover:bg-[#e4ac42]">
         <span v-if="loading">Logging in...</span>
         <span v-else>Login</span>
@@ -37,18 +37,17 @@
       </p>
 
       <!-- Logout Button (Optional) -->
-      <button type="button" @click="logout" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 mt-4">
+      <button v-if="isAuthenticated" type="button" @click="handleLogout" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 mt-4">
         Logout
       </button>
     </div>
   </div>
 </template>
 
-
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { useAuth } from '../composables/useAuth';
 
 const logo = '/images/logo/Output_v2.svg';
 const formLogin = ref({
@@ -57,73 +56,30 @@ const formLogin = ref({
 });
 
 const router = useRouter();
+const { login, logout, loading, isAuthenticated } = useAuth();
 
-const loading = ref(false);
-
-// Logout function
-const logout = () => {
-  // Remove token from localStorage
-  localStorage.removeItem('authToken');
-  
-  // Clear the Authorization header
-  delete axios.defaults.headers.common['Authorization'];
-
-  // Optionally, redirect the user to the login page
-  router.push('/login'); // Adjust the path as needed
+// Handle login function
+const handleLogin = async () => {
+  try {
+    await login(formLogin.value);
+    // Optionally, redirect if login is successful
+    router.push('/AplicationWorkView'); // Adjust the path as needed
+  } catch (error) {
+    console.error('Login error:', error);
+  }
 };
 
-const login = async () => {
-  loading.value = true;
+// Handle logout function
+const handleLogout = async () => {
   try {
-    const response = await axios.post('https://api.pis3th.info/api/login', formLogin.value, {
-      headers: {
-        "Content-Type": "application/json; charset=utf-8"
-      }
-    });
-
-    // Check for successful response
-    if (response.status === 200) {
-      const { access_token } = response.data;
-
-      // Save the token to localStorage
-      localStorage.setItem('authToken', access_token);
-
-      // Set token for future requests
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
-      // Redirect to the dashboard or another page on successful login
-      router.push('/AplicationWorkView');
-    } else {
-      console.error('Unexpected response status:', response.status, 'Response:', response.data);
-      alert('An unexpected error occurred. Please try again.');
-    }
+    await logout();
+    // Optionally, redirect after logout
+    router.push('/login'); // Adjust the path as needed
   } catch (error) {
-    if (error.response) {
-      console.error('API Error:', error.response);
-      if (error.response.status === 422) {
-        const errors = error.response.data.errors || {};
-        const messages = Object.values(errors).flat().join(', ');
-        alert(`Validation Error: ${messages}`);
-      } else if (error.response.status === 400) {
-        const message = error.response.data.message || 'An error occurred. Please check your input.';
-        alert(`Bad Request: ${message}`);
-      } else {
-        alert(`Error ${error.response.status}: ${error.response.data.message || 'An unexpected error occurred.'}`);
-      }
-    } else if (error.request) {
-      console.error('No response received:', error.request);
-      alert('Network Error: No response received from the server.');
-    } else {
-      console.error('Error setting up request:', error.message);
-      alert('Error setting up request: ' + error.message);
-    }
-  } finally {
-    loading.value = false;
+    console.error('Logout error:', error);
   }
 };
 </script>
-
-
 
 <style scoped>
 body {
