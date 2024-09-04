@@ -9,6 +9,15 @@ const loading = ref(false);
 export function useAuth() {
   const router = useRouter();
 
+  // Initialize authentication state
+  const initializeAuth = () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      isAuthenticated.value = true;
+    }
+  };
+
   // Login function
   const login = async (formLogin) => {
     try {
@@ -69,6 +78,9 @@ export function useAuth() {
     isAuthenticated.value = false; // Update state to reflect logged-out status
     router.push('/login');
   };
+
+  // Initialize authentication state on composable usage
+  initializeAuth();
 
   return {
     isAuthenticated,
