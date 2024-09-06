@@ -1,0 +1,293 @@
+.ql-editor {
+    padding: 8px !important;
+  }
+  
+  .ql-container.ql-snow {
+    /* width: 100vw !important; */
+    border: 1px solid #ccc;
+    display: block;
+    /* height: 100vh !important; */
+  }
+  
+  .ql-toolbar.ql-snow .ql-formats {
+      margin-right: 0 !important;
+      border: 1px solid #ccc;
+  }
+  
+  .ql-picker-item::before {
+    font-size: 12px !important;
+  }
+  
+  .ql-snow .ql-picker.ql-font {
+    width: 185px !important;
+  }
+  
+  
+  /* set font size */
+  .ql-size span[data-value="8px"]::before {
+    content: "8px" !important;
+  }
+  
+  .ql-size span[data-value="9px"]::before {
+    content: "9px" !important;
+  }
+  
+  .ql-size span[data-value="10px"]::before {
+    content: "10px" !important;
+  }
+  
+  .ql-size span[data-value="11px"]::before {
+    content: "11px" !important;
+  }
+  
+  .ql-size span[data-value="12px"]::before {
+    content: "12px" !important;
+  }
+  
+  .ql-size span[data-value="14px"]::before {
+    content: "14px" !important;
+  }
+  
+  .ql-size span[data-value="16px"]::before {
+    content: "16px" !important;
+  }
+  
+  .ql-size span[data-value="18px"]::before {
+    content: "18px" !important;
+  }
+  
+  .ql-size span[data-value="20px"]::before {
+    content: "20px" !important;
+  }
+  
+  .ql-size span[data-value="22px"]::before {
+    content: "22px" !important;
+  }
+  
+  .ql-size span[data-value="24px"]::before {
+    content: "24px" !important;
+  }
+  
+  .ql-size span[data-value="26px"]::before {
+    content: "26px" !important;
+  }
+  
+  .ql-size span[data-value="28px"]::before {
+    content: "28px" !important;
+  }
+  
+  .ql-size span[data-value="36px"]::before {
+    content: "36px" !important;
+  }
+  
+  .ql-size span[data-value="48px"]::before {
+    content: "48px" !important;
+  }
+  
+  .ql-size span[data-value="72px"]::before {
+    content: "72px" !important;
+  }
+  
+  .ql-size-8px {
+    font-size: 8px;
+  }
+  
+  .ql-size-9px {
+    font-size: 9px;
+  }
+  
+  .ql-size-10px {
+    font-size: 10px;
+  }
+  
+  .ql-size-11px {
+    font-size: 11px;
+  }
+  
+  .ql-size-12px {
+    font-size: 12px;
+  }
+  
+  .ql-size-14px {
+    font-size: 14px;
+  }
+  
+  .ql-size-16px {
+    font-size: 16px;
+  }
+  
+  .ql-size-18px {
+    font-size: 18px;
+  }
+  
+  .ql-size-20px {
+    font-size: 20px;
+  }
+  
+  .ql-size-22px {
+    font-size: 22px;
+  }
+  
+  .ql-size-24px {
+    font-size: 24px;
+  }
+  
+  .ql-size-26px {
+    font-size: 26px;
+  }
+  
+  .ql-size-28px {
+    font-size: 28px;
+  }
+  
+  .ql-size-36px {
+    font-size: 36px;
+  }
+  
+  .ql-size-48px {
+    font-size: 48px;
+  }
+  
+  .ql-size-72px {
+    font-size: 72px;
+  }
+  
+  
+  /* set font family */
+  .ql-toolbar .ql-font span[data-value="Sans-Serif"]::before {
+    content: "Sans Serif" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS"]::before {
+    content: "Khmer OS" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Battambang"]::before {
+    content: "Khmer OS Battambang" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Bokor"]::before {
+    content: "Khmer OS Bokor" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Content"]::before {
+    content: "Khmer OS Content" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Fasthand"]::before {
+    content: "Khmer OS Fasthand" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Freehand"]::before {
+    content: "Khmer OS Freehand" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Metal-Chrieng"]::before {
+    content: "Khmer OS Metal Chrieng" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Muol"]::before {
+    content: "Khmer OS Muol" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Muol-Light"]::before {
+    content: "Khmer OS Muol Light" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Muol-Pali"]::before {
+    content: "Khmer OS Muol Pali" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-Siemreap"]::before {
+    content: "Khmer OS Siemreap" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Khmer-OS-System"]::before {
+    content: "Khmer OS System" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Times-New-Roman"]::before {
+    content: "Times New Roman" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Tahoma"]::before {
+    content: "Tahoma" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="DaunPenh"]::before {
+    content: "DaunPenh" !important;
+  }
+
+
+  .ql-toolbar .ql-font span[data-value="Arial"]::before {
+    content: "Arial" !important;
+  }
+  
+  .ql-toolbar .ql-font span[data-value="Arial-Narrow"]::before {
+    content: "Arial Narrow" !important;
+  }
+  
+  .ql-font-Sans-Serif {
+    font-family: "Sans Serif";
+  }
+  
+  .ql-font-Khmer-OS {
+    font-family: "Khmer OS";
+  }
+  
+  .ql-font-Khmer-OS-Battambang {
+    font-family: "Khmer OS Battambang";
+  }
+  
+  .ql-font-Khmer-OS-Bokor {
+    font-family: "Khmer OS Bokor";
+  }
+  
+  .ql-font-Khmer-OS-Content {
+    font-family: "Khmer OS Content";
+  }
+  
+  .ql-font-Khmer-OS-Fasthand {
+    font-family: "Khmer OS Fasthand";
+  }
+  
+  .ql-font-Khmer-OS-Freehand {
+    font-family: "Khmer OS Freehand";
+  }
+  
+  .ql-font-Khmer-OS-Metal-Chrieng {
+    font-family: "Khmer OS Metal Chrieng";
+  }
+  
+  .ql-font-Khmer-OS-Muol {
+    font-family: "Khmer OS Muol";
+  }
+  
+  .ql-font-Khmer-OS-Muol-Light {
+    font-family: "Khmer OS Muol Light";
+  }
+  
+  .ql-font-Khmer-OS-Muol-Pali {
+    font-family: "Khmer OS Muol Pali";
+  }
+  
+  .ql-font-Khmer-OS-Siemreap {
+    font-family: "Khmer OS Siemreap";
+  }
+  
+  .ql-font-Times-New-Roman {
+    font-family: "Times New Roman";
+  }
+  
+  .ql-font-Tahoma {
+    font-family: "Tahoma";
+  }
+  
+  .ql-font-DaunPenh {
+    font-family: "DaunPenh";
+  }
+  
+  .ql-font-Arial-Narrow {
+    font-family: "Arial Narrow";
+  }
+    

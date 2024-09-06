@@ -17,11 +17,15 @@
                 </h3>
               </div>
 
+           
+
               <!-- Middle Section -->
              <div class="box1 middle-section  border-b-0">
                 <h3 class="description respon-dec ">
-                
-                  {{ item.description }}
+                  <div id="editor" v-html="item.description" content-type="html" toolbar="full" class="ql-editor ql-editor-1" data-gramm="false" contenteditable="true">
+                   
+                  </div>
+                  <!-- {{ item.description }} -->
                 </h3>
               </div>
 
@@ -96,6 +100,8 @@ import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust t
 import axios from 'axios';
 
 
+
+
 const stateForm = ref([]);
 const fetchData = async () => {
   try {
@@ -148,6 +154,7 @@ const downloadFile = (url, fileName) => {
 
 
 <style scoped>
+
 /* General Container */
 .container {
   width: 100%;

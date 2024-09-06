@@ -1,5 +1,9 @@
 import './assets/main.css'
 import './assets/fonts.css'
+import './assets/css/style.css'
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+
 
 import { createApp } from 'vue'
 import App from './App.vue'
