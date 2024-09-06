@@ -45,9 +45,8 @@
                         ឯកសារ
                       </h3>
                     </div>
-
-                <!-- Add a wrapper for the status sections -->
-<div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
+               <!-- Add a wrapper for the status sections -->
+               <div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
   <!-- Meeting Status (Pending) -->
   <div class="flex items-center gap-4 pl-4 pt-5">
     <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
@@ -76,8 +75,8 @@
     </div>
   </div>
 </div>
-
-
+                    
+                    
                   </div>
                 </div>
               </div>
@@ -138,7 +137,6 @@ onMounted(() => {
 const toggleStatus = (index) => {
   stateForm.value[index].status = stateForm.value[index].status === 'pending' ? 'done' : 'pending';
 };
-
 
 const downloadFile = (url, fileName) => {
   const link = document.createElement('a');
