@@ -12,18 +12,19 @@
               <!-- Left Section -->
               <div class="box1 left-section left-respon">
                 <h3 class="heading respon-h">
-                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time"/>
+                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />
                   <span style="font-size: 16px;">{{ item.start_datetime }} {{ item["meeting shift"] }}</span>
                 </h3>
               </div>
 
-           
+
 
               <!-- Middle Section -->
-             <div class="box1 middle-section  border-b-0">
+              <div class="box1 middle-section  border-b-0">
                 <h3 class="description respon-dec ">
-                  <div id="editor" v-html="item.description" content-type="html" toolbar="full" class="ql-editor ql-editor-1" data-gramm="false" contenteditable="true">
-                   
+                  <div id="editor" v-html="item.description" content-type="html" toolbar="full"
+                    class="ql-editor ql-editor-1" data-gramm="false" contenteditable="true">
+
                   </div>
                   <!-- {{ item.description }} -->
                 </h3>
@@ -49,38 +50,30 @@
                         ឯកសារ
                       </h3>
                     </div>
-               <!-- Add a wrapper for the status sections -->
-               <div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
-  <!-- Meeting Status (Pending) -->
-  <div class="flex items-center gap-4 pl-4 pt-5">
-    <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
-    <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
-      <Icon
-        class="size-4 all-correct"
-        :style="{
-          color: item.is_public === '0' && item.is_cancelled === '1' ? '#FF0000' : '#D3D3D3'
-        }"
-        :icon="item.is_public === '0' && item.is_cancelled === '1' ? 'icon-park-solid:correct' : 'icon-park-solid:minus'"
-      />
-    </div>
-  </div>
+                    <!-- Add a wrapper for the status sections -->
+                    <div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                      <!-- Meeting Status (Pending) -->
+                      <div class="flex items-center gap-4 pl-4 pt-5">
+                        <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
+                        <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
+                          <Icon class="size-4 all-correct" :style="{
+                            color: item.is_public === '0' && item.is_cancelled === '1' ? '#FF0000' : '#D3D3D3'
+                          }" :icon="item.is_public === '0' && item.is_cancelled === '1' ? 'icon-park-solid:correct' : 'icon-park-solid:minus'" />
+                        </div>
+                      </div>
 
-  <!-- Meeting Status (Done) -->
-  <div class="flex items-center gap-4 pl-4 pt-5">
-    <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
-    <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
-      <Icon
-        class="size-4 all-correct"
-        :style="{
-          color: item.is_public === '1' && item.is_cancelled === '0' ? '#008C0E' : '#D3D3D3'
-        }"
-        :icon="item.is_public === '1' && item.is_cancelled === '0' ? 'icon-park-solid:correct' : 'icon-park-solid:minus'"
-      />
-    </div>
-  </div>
-</div>
-                    
-                    
+                      <!-- Meeting Status (Done) -->
+                      <div class="flex items-center gap-4 pl-4 pt-5">
+                        <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
+                        <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
+                          <Icon class="size-4 all-correct" :style="{
+                            color: item.is_public === '1' && item.is_cancelled === '0' ? '#008C0E' : '#D3D3D3'
+                          }" :icon="item.is_public === '1' && item.is_cancelled === '0' ? 'icon-park-solid:correct' : 'icon-park-solid:minus'" />
+                        </div>
+                      </div>
+                    </div>
+
+
                   </div>
                 </div>
               </div>
@@ -154,7 +147,6 @@ const downloadFile = (url, fileName) => {
 
 
 <style scoped>
-
 /* General Container */
 .container {
   width: 100%;
@@ -164,8 +156,6 @@ const downloadFile = (url, fileName) => {
 
 .bigcontainer {
   max-width: 100%;
-
-  /* Adjust as needed */
   position: relative;
 }
 
@@ -298,6 +288,7 @@ const downloadFile = (url, fileName) => {
 .content {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .left-section,
@@ -315,7 +306,6 @@ const downloadFile = (url, fileName) => {
   align-items: center;
   padding-bottom: 40px;
   border-bottom: 0px solid;
-
 }
 
 .middle-section {
@@ -346,18 +336,27 @@ const downloadFile = (url, fileName) => {
 }
 
 /* Responsive Design */
-@media (max-width: 375px) {
+@media (min-width: 320px) and (max-width:375px)  {
   .content {
-    flex-direction: column;
+    flex-direction: row;
   }
+  .middle-section{
+    border-bottom: none;
+    border-right:  1px solid #0094FF;
+  }
+  .left-section{
+    border-bottom: 1px solid #0094FF;
+    border-bottom: none;  
+  }
+
 
   .left-section,
   .middle-section,
   .right-section {
     padding: 0.5rem;
     text-align: center;
+    
   }
-
 
   .left-section .heading,
   .middle-section .description,
@@ -366,16 +365,19 @@ const downloadFile = (url, fileName) => {
   .right-section .file {
     font-size: 12px;
     line-height: 1.2;
+    flex-wrap: wrap;
   }
 
   .status-wrapper {
     flex-direction: column;
     align-items: flex-start;
     text-align: center;
+    
   }
 
   .status-text {
     font-size: 10px;
+   
   }
 
   .icon {
@@ -388,94 +390,93 @@ const downloadFile = (url, fileName) => {
     flex-direction: row;
   }
 
-
+  .left-section .heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .middle-section{
+    border-bottom: none;
+    border-right:  1px solid #0094FF;
+  }
+  .left-section{
+    border-bottom: 1px solid #0094FF;
+    border-bottom: none;
+  }
+ 
   .left-section,
   .middle-section,
   .right-section {
     padding: 0.8rem;
-    text-align: start;
-  }
-
-  .left-section .heading {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .icon-respon {
-    width: 28px;
-    height: 28px;
-    margin-right: 0.5rem;
-  }
-
-  .heading span {
-    word-break: break-word;
-  }
-
-  .status-wrapper {
-    flex-direction: column;
-    align-items: flex-start;
     text-align: center;
   }
 
-  .room.txt-room.pt-5 {
-    font-size: 18px;
-    margin-top: 0.8rem;
+  .left-section .heading,
+  .middle-section .description,
+  .right-section .room,
+  .right-section .status-text,
+  .right-section .file {
+    font-size: 14px; /* Slightly larger for readability */
+  }
+
+
+
+  .status-text {
+    font-size: 12px;
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+
+  .description {
+   
+    line-height: 1.4;
+  }
+
+  .room {
+    font-size: 16px;
+    padding-left: 0.5rem;
   }
 }
 
-/* Small devices (576px and smaller) */
 @media (min-width: 576px) and (max-width: 768px) {
-
   .left-section,
   .middle-section,
   .right-section {
-
     text-align: center;
-
   }
 
   .left-section .heading {
     display: flex;
     align-items: center;
-    /* Center icon and text vertically */
     flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
   }
 
   .right-section {
     padding: 0.75rem;
     text-align: center;
-    word-wrap: break-word;
   }
 
   .right-section .room {
     font-size: 18px;
-    text-align: center;
-    /* Center the text in the room class */
   }
 
-  .right-section .status-text {
-    font-size: 12px;
-    /* Adjust font size for status text */
-    text-align: center;
-    /* Center the status text */
-  }
-
+  .right-section .status-text,
   .right-section .file {
     font-size: 12px;
-    /* Adjust font size for file text */
-    text-align: center;
-    /* Center the file text */
   }
 }
-
-
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .content {
     flex-direction: row;
     padding: 5px;
+  }
+  .left-section .heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   .left-section,
@@ -483,14 +484,6 @@ const downloadFile = (url, fileName) => {
   .right-section {
     padding-left: 12px;
     text-align: center;
-  }
-
-  .left-section .heading {
-    display: flex;
-    align-items: center;
-    /* Center icon and text vertically */
-    flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
   }
 
   .right-section {
@@ -506,28 +499,15 @@ const downloadFile = (url, fileName) => {
 }
 
 @media (min-width: 1024px) and (max-width: 1089px) {
+  
   .left-section .heading {
     display: flex;
     align-items: center;
-    /* Center icon and text vertically */
     flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
-  }
-
-  .right-section {
-    flex: 2;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
-  .left-section .heading {
-    display: flex;
-    align-items: center;
-    /* Center icon and text vertically */
-    flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
-  }
-
   .left-section,
   .middle-section,
   .right-section {

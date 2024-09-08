@@ -1,29 +1,32 @@
 <template>
   <div class="bigcontainer max-w-full relative">
-    <div class="container max-w-full  absolut flex flex-col justify-center items-center">
+    <div class="container max-w-full absolut flex flex-col justify-center items-center">
       <h1 class="title">កម្មវិធីការងារ</h1>
       <h2 class="subtitle">
         <DateTimeComponent />
       </h2>
       <div class="w-full">
-        <div v-if="stateForm?.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full">
+        <div v-if="stateForm.length > 0" v-for="(item, index) in stateForm" :key="index" class="main-box w-full">
           <div class="box max-w-full mx-auto">
             <div class="content w-full">
               <!-- Left Section -->
               <div class="box1 left-section left-respon">
                 <h3 class="heading respon-h">
-                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time"/>
+                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />
                   <span style="font-size: 16px;">{{ item.start_datetime }} {{ item["meeting shift"] }}</span>
                 </h3>
               </div>
 
+
+
               <!-- Middle Section -->
-             <div class="box1 middle-section  border-b-0">
+              <div class="box1 middle-section  border-b-0">
                 <h3 class="description respon-dec ">
-                  <b style="font-family: 'Khmer OS Muol', sans-serif;">{{ item.nickname }}</b>
-                  {{ item.between }}
-                  <b style="font-family: 'Khmer OS Muol', sans-serif;">{{ item.nickname1 }}</b>
-                  {{ item.description }}
+                  <div id="editor" v-html="item.description" content-type="html" toolbar="full"
+                    class="ql-editor ql-editor-1" data-gramm="false" contenteditable="true">
+
+                  </div>
+                  <!-- {{ item.description }} -->
                 </h3>
               </div>
 
@@ -37,7 +40,7 @@
                   <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
 
                     <div class="status-section pt-5" :class="{ 'cursor-pointer': item.related_document }"
-                      @click="item.related_document ? downloadFile(item.related_document,item.filename) : null">
+                      @click="item.related_document ? downloadFile(item.related_document, item.filename) : null">
                       <h3 class="file font-txt text-h3 pt-5" :class="{
                         'text-blue-800': item.related_document && item.related_document !== '',
                         'text-black': !item.related_document || item.related_document === ''
@@ -47,41 +50,30 @@
                         ឯកសារ
                       </h3>
                     </div>
-
                     <!-- Add a wrapper for the status sections -->
                     <div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
-                    <!-- Meeting Status (Pending) -->
+                      <!-- Meeting Status (Pending) -->
                       <div class="flex items-center gap-4 pl-4 pt-5">
                         <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
-                        <div
-                          class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center"
-                        >
-                          <Icon
-                            class="size-4 all-correct"
-                            :style="{
-                              color: item.is_public !== 1 || item.is_cancelled !== 0 ? '#FF0000' : '#D3D3D3'
-                            }"
-                            :icon="item.is_public !== 1 || item.is_cancelled !== 0 ? 'icon-park-solid:correct' : 'icon-park-solid:red'"
-                          />
+                        <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
+                          <Icon class="size-4 all-correct" :style="{
+                            color: item.is_public === '0' && item.is_cancelled === '1' ? '#FF0000' : '#D3D3D3'
+                          }" :icon="item.is_public === '0' && item.is_cancelled === '1' ? 'icon-park-solid:correct' : 'icon-park-solid:minus'" />
                         </div>
                       </div>
-                    
+
                       <!-- Meeting Status (Done) -->
                       <div class="flex items-center gap-4 pl-4 pt-5">
                         <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
-                        <div
-                          class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center"
-                        >
-                          <Icon
-                            class="size-4 all-correct"
-                            :style="{
-                              color: item.is_public === 1 && item.is_cancelled === 0 ? '#008C0E' : '#D3D3D3'
-                            }"
-                            :icon="item.is_public === 1 && item.is_cancelled === 0 ? 'icon-park-solid:correct' : 'icon-park-solid:minus'"
-                          />
+                        <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
+                          <Icon class="size-4 all-correct" :style="{
+                            color: item.is_public === '1' && item.is_cancelled === '0' ? '#008C0E' : '#D3D3D3'
+                          }" :icon="item.is_public === '1' && item.is_cancelled === '0' ? 'icon-park-solid:correct' : 'icon-park-solid:minus'" />
                         </div>
                       </div>
-                    </div>  
+                    </div>
+
+
                   </div>
                 </div>
               </div>
@@ -93,14 +85,53 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import { Icon } from '@iconify/vue';
-import db from "../../db.json";
-import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust the path as needed
 
-const stateForm = ref(db || []);
-console.log({ stateForm });
+<script setup>
+import { ref, onMounted } from 'vue';
+import { Icon } from '@iconify/vue';
+import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust the path as needed
+import axios from 'axios';
+
+
+
+
+const stateForm = ref([]);
+const fetchData = async () => {
+  try {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      throw new Error('No token found. Please log in.');
+    }
+
+    const response = await axios.get('https://api.pis3th.info/api/meetings', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });
+
+    console.log('API Response:', response); // Log the entire response object
+
+    // Access the nested data correctly
+    if (response.data && response.data.data && Array.isArray(response.data.data)) {
+      stateForm.value = response.data.data;
+    } else {
+      console.warn('Unexpected data format:', response.data);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error.response || error.message); // Improved error logging
+    alert('Error fetching data. Please log in again.');
+  }
+};
+
+
+
+
+
+
+onMounted(() => {
+  fetchData(); // Fetch data when component is mounted
+});
 
 const toggleStatus = (index) => {
   stateForm.value[index].status = stateForm.value[index].status === 'pending' ? 'done' : 'pending';
@@ -114,6 +145,7 @@ const downloadFile = (url, fileName) => {
 };
 </script>
 
+
 <style scoped>
 /* General Container */
 .container {
@@ -124,8 +156,6 @@ const downloadFile = (url, fileName) => {
 
 .bigcontainer {
   max-width: 100%;
-
-  /* Adjust as needed */
   position: relative;
 }
 
@@ -258,6 +288,7 @@ const downloadFile = (url, fileName) => {
 .content {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 .left-section,
@@ -275,7 +306,6 @@ const downloadFile = (url, fileName) => {
   align-items: center;
   padding-bottom: 40px;
   border-bottom: 0px solid;
-
 }
 
 .middle-section {
@@ -308,8 +338,9 @@ const downloadFile = (url, fileName) => {
 /* Responsive Design */
 @media (max-width: 375px) {
   .content {
-    flex-direction: column;
+    flex-direction: row;
   }
+
 
   .left-section,
   .middle-section,
@@ -317,7 +348,6 @@ const downloadFile = (url, fileName) => {
     padding: 0.5rem;
     text-align: center;
   }
-
 
   .left-section .heading,
   .middle-section .description,
@@ -343,94 +373,87 @@ const downloadFile = (url, fileName) => {
   }
 }
 
-@media (min-width: 375px) and (max-width: 576px) {
+@media (min-width: 375px) and (max-width: 541px) {
   .content {
     flex-direction: row;
   }
 
-
+  .left-section .heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .middle-section{
+    border-bottom: 1px solid #0094FF;
+    border-right: none;
+  }
+  .left-section{
+    border-bottom: 1px solid #0094FF;
+  }
+ 
   .left-section,
   .middle-section,
   .right-section {
     padding: 0.8rem;
-    text-align: start;
-  }
-
-  .left-section .heading {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .icon-respon {
-    width: 28px;
-    height: 28px;
-    margin-right: 0.5rem;
-  }
-
-  .heading span {
-    word-break: break-word;
-  }
-
-  .status-wrapper {
-    flex-direction: column;
-    align-items: flex-start;
     text-align: center;
   }
 
-  .room.txt-room.pt-5 {
-    font-size: 18px;
-    margin-top: 0.8rem;
+  .left-section .heading,
+  .middle-section .description,
+  .right-section .room,
+  .right-section .status-text,
+  .right-section .file {
+    font-size: 14px; /* Slightly larger for readability */
+  }
+
+
+
+  .status-text {
+    font-size: 12px;
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+
+  .description {
+    -webkit-line-clamp: 4; /* Show more lines on medium small screens */
+    line-height: 1.4;
+  }
+
+  .room {
+    font-size: 16px;
+    padding-left: 0.5rem;
   }
 }
 
-/* Small devices (576px and smaller) */
 @media (min-width: 576px) and (max-width: 768px) {
-
   .left-section,
   .middle-section,
   .right-section {
-
     text-align: center;
-
   }
 
   .left-section .heading {
     display: flex;
     align-items: center;
-    /* Center icon and text vertically */
     flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
   }
 
   .right-section {
     padding: 0.75rem;
     text-align: center;
-    word-wrap: break-word;
   }
 
   .right-section .room {
     font-size: 18px;
-    text-align: center;
-    /* Center the text in the room class */
   }
 
-  .right-section .status-text {
-    font-size: 12px;
-    /* Adjust font size for status text */
-    text-align: center;
-    /* Center the status text */
-  }
-
+  .right-section .status-text,
   .right-section .file {
     font-size: 12px;
-    /* Adjust font size for file text */
-    text-align: center;
-    /* Center the file text */
   }
 }
-
-
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .content {
@@ -443,14 +466,6 @@ const downloadFile = (url, fileName) => {
   .right-section {
     padding-left: 12px;
     text-align: center;
-  }
-
-  .left-section .heading {
-    display: flex;
-    align-items: center;
-    /* Center icon and text vertically */
-    flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
   }
 
   .right-section {
@@ -466,28 +481,12 @@ const downloadFile = (url, fileName) => {
 }
 
 @media (min-width: 1024px) and (max-width: 1089px) {
-  .left-section .heading {
-    display: flex;
-    align-items: center;
-    /* Center icon and text vertically */
-    flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
-  }
-
   .right-section {
     flex: 2;
   }
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
-  .left-section .heading {
-    display: flex;
-    align-items: center;
-    /* Center icon and text vertically */
-    flex-wrap: wrap;
-    /* Allow text to wrap if it's too long */
-  }
-
   .left-section,
   .middle-section,
   .right-section {
