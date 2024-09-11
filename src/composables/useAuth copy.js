@@ -11,13 +11,10 @@ export function useAuth() {
 
   // Initialize authentication state
   const initializeAuth = () => {
-    const token = sessionStorage.getItem('authToken'); // Use session storage
+    const token = localStorage.getItem('authToken');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       isAuthenticated.value = true;
-    } else {
-      // Optionally redirect to login if no token found
-      // router.push('/login');
     }
   };
 
@@ -37,11 +34,11 @@ export function useAuth() {
         const { access_token } = response.data;
 
         // Save the token and update the authentication state
-        sessionStorage.setItem('authToken', access_token); // Use session storage
+        localStorage.setItem('authToken', access_token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
         isAuthenticated.value = true; // Update state to reflect logged-in status
 
-        // Redirect to the dashboard or a specific page
+        // Redirect to the dashboard
         router.push('/AplicationWorkView');
       }
     } catch (error) {
@@ -76,11 +73,9 @@ export function useAuth() {
 
   // Logout function
   const logout = () => {
-    sessionStorage.removeItem('authToken'); // Use session storage
+    localStorage.removeItem('authToken');
     delete axios.defaults.headers.common['Authorization'];
     isAuthenticated.value = false; // Update state to reflect logged-out status
-    
-    // Redirect to login page after logout
     router.push('/login');
   };
 

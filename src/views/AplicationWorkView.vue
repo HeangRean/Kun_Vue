@@ -1,6 +1,6 @@
 <template>
   <div class="bigcontainer max-w-full relative">
-    <div class="container max-w-full absolut flex flex-col justify-center items-center">
+    <div class="container max-w-full absolute flex flex-col justify-center items-center">
       <h1 class="title">កម្មវិធីការងារ</h1>
       <h2 class="subtitle">
         <DateTimeComponent />
@@ -12,47 +12,46 @@
               <!-- Left Section -->
               <div class="box1 left-section left-respon">
                 <h3 class="heading respon-h">
-                  <Icon class="icon-respon" :width="28" :height="28" icon="fluent-mdl2:date-time" />
-                  <span style="font-size: 16px;">{{ item.start_datetime }} {{ item["meeting shift"] }}</span>
+                  <Icon class="icon-respon" :width="20" :height="20" icon="fluent-mdl2:date-time" />
+                  <!-- Added class for spacing between icon and text -->
+                  <h4 class="date-text">{{ formatKhmerDate(item.start_datetime) }}</h4>
                 </h3>
               </div>
-
-
-
               <!-- Middle Section -->
-              <div class="box1 middle-section  border-b-0">
-                <h3 class="description respon-dec ">
+              <div class="box1 middle-section border-b-0">
+                <h3 class="description respon-dec">
                   <div id="editor" v-html="item.description" content-type="html" toolbar="full"
                     class="ql-editor ql-editor-1" data-gramm="false" contenteditable="true">
-
                   </div>
-                  <!-- {{ item.description }} -->
                 </h3>
               </div>
-
+              <!-- Right Section -->
               <div class="box1 right-section relative">
                 <div class="child"></div>
-                <h3 class="room txt-room pt-5">{{ item.venue }}</h3>
+                <h3 class="room txt-room pt-5" style="font-family: 'Khmer OS Muol', Arial, sans-serif;">
+                  {{ item.venue }}
+                </h3>
 
                 <!-- Bottom Section -->
                 <div class="flex main-respon flex-col">
-                  <!-- Meeting Status and Meeting Status (Green) in a single row -->
+                  <!-- Meeting Status and Document Download -->
                   <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center">
 
+                    <!-- Document Section -->
                     <div class="status-section pt-5" :class="{ 'cursor-pointer': item.related_document }"
-                      @click="item.related_document ? downloadFile(item.related_document, item.filename) : null">
+                        @click="item.related_document ? openDocument(item.related_document) : null">
                       <h3 class="file font-txt text-h3 pt-5" :class="{
                         'text-blue-800': item.related_document && item.related_document !== '',
                         'text-black': !item.related_document || item.related_document === ''
                       }">
                         <Icon class="respon-file respon-text" :width="20" :height="20"
                           icon="material-symbols:download" />
-                        ឯកសារ
+                        <p style="font-family: 'Khmer OS Muol', Arial, sans-serif;">ឯកសារ</p>
                       </h3>
                     </div>
-                    <!-- Add a wrapper for the status sections -->
+                    <!-- Meeting Status -->
                     <div class="status-wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
-                      <!-- Meeting Status (Pending) -->
+                      <!-- Pending -->
                       <div class="flex items-center gap-4 pl-4 pt-5">
                         <h3 class="status-text respon-text text-base md:text-lg text-[#FF0000]">ពុំទាន់</h3>
                         <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
@@ -62,7 +61,7 @@
                         </div>
                       </div>
 
-                      <!-- Meeting Status (Done) -->
+                      <!-- Done -->
                       <div class="flex items-center gap-4 pl-4 pt-5">
                         <h3 class="status-text respon-text text-base md:text-lg text-[#008C0E]">រួចរាល់</h3>
                         <div class="border-2 border-black rounded-full w-4 h-4 flex justify-center items-center">
@@ -72,7 +71,6 @@
                         </div>
                       </div>
                     </div>
-
 
                   </div>
                 </div>
@@ -90,15 +88,17 @@
 import { ref, onMounted } from 'vue';
 import { Icon } from '@iconify/vue';
 import DateTimeComponent from '../components/DateTimeComponent.vue'; // Adjust the path as needed
+import { useRouter } from 'vue-router';
 import axios from 'axios';
-
-
-
+import { useAuth } from '../composables/useAuth';
 
 const stateForm = ref([]);
+const { isAuthenticated, logout } = useAuth();
+const router = useRouter();
+
 const fetchData = async () => {
   try {
-    const token = localStorage.getItem('authToken');
+    const token = sessionStorage.getItem('authToken'); // Use session storage
     if (!token) {
       throw new Error('No token found. Please log in.');
     }
@@ -120,17 +120,54 @@ const fetchData = async () => {
     }
   } catch (error) {
     console.error('Error fetching data:', error.response || error.message); // Improved error logging
-    alert('Error fetching data. Please log in again.');
+    logout(); // Ensure user is logged out and redirected to login
+    router.push('/login'); // Redirect to login page
   }
 };
 
 
+const openDocument = (documentUrl) => {
+  window.open(documentUrl, '_blank');
+};
 
+const convertToKhmer = (number) => {
+  const khmerDigits = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
+  return String(number).replace(/\d/g, (digit) => khmerDigits[digit]);
+};
 
+// Function to format the date in Khmer format (YYYY-MM-DD)
+const formatKhmerDate = (datetime) => {
+  const date = new Date(datetime);
+  const year = convertToKhmer(date.getFullYear());
+  const month = convertToKhmer(date.getMonth() + 1);
+  const day = convertToKhmer(date.getDate());
 
+  let hours = date.getHours();
+  const minutes = convertToKhmer(date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+
+  // Determine the Khmer period based on the time of day
+  let period = '';
+  if (hours >= 5 && hours < 12) {
+    period = 'ព្រឹក'; // Morning (5 AM to 12 PM)
+  } else if (hours >= 12 && hours < 17) {
+    period = 'រសៀល'; // Afternoon (12 PM to 5 PM)
+  } else if (hours >= 17 && hours < 21) {
+    period = 'ល្ងាច'; // Evening (5 PM to 9 PM)
+  } else {
+    period = 'យប់'; // Night (9 PM to 4 AM)
+  }
+
+  // Convert 24-hour format to 12-hour format
+  hours = hours % 12 || 12; // Convert 0 to 12 for midnight/noon
+  const formattedHours = convertToKhmer(hours);
+
+  return `${year}-${month}-${day} ${formattedHours}:${minutes}${period}`; // Return date in Khmer with time and period
+};
 
 onMounted(() => {
-  fetchData(); // Fetch data when component is mounted
+  fetchData().then(() => {
+    stateForm.value.sort((a, b) => (a.is_public === '0' ? -1 : 1));
+  });
 });
 
 const toggleStatus = (index) => {
@@ -146,6 +183,7 @@ const downloadFile = (url, fileName) => {
 </script>
 
 
+
 <style scoped>
 /* General Container */
 .container {
@@ -157,6 +195,12 @@ const downloadFile = (url, fileName) => {
 .bigcontainer {
   max-width: 100%;
   position: relative;
+}
+
+.date-text {
+  font-size: 16px;
+  font-family: 'Khmer OS Muol', Arial, sans-serif;
+  margin-left: -3px;
 }
 
 /* Font Family */

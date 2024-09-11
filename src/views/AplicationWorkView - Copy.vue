@@ -336,9 +336,17 @@ const downloadFile = (url, fileName) => {
 }
 
 /* Responsive Design */
-@media (max-width: 375px) {
+@media (min-width: 320px) and (max-width:375px)  {
   .content {
     flex-direction: row;
+  }
+  .middle-section{
+    border-bottom: none;
+    border-right:  1px solid #0094FF;
+  }
+  .left-section{
+    border-bottom: 1px solid #0094FF;
+    border-bottom: none;  
   }
 
 
@@ -347,6 +355,7 @@ const downloadFile = (url, fileName) => {
   .right-section {
     padding: 0.5rem;
     text-align: center;
+    
   }
 
   .left-section .heading,
@@ -356,16 +365,19 @@ const downloadFile = (url, fileName) => {
   .right-section .file {
     font-size: 12px;
     line-height: 1.2;
+    flex-wrap: wrap;
   }
 
   .status-wrapper {
     flex-direction: column;
     align-items: flex-start;
     text-align: center;
+    
   }
 
   .status-text {
     font-size: 10px;
+   
   }
 
   .icon {
@@ -373,7 +385,7 @@ const downloadFile = (url, fileName) => {
   }
 }
 
-@media (min-width: 375px) and (max-width: 541px) {
+@media (min-width: 375px) and (max-width: 576px) {
   .content {
     flex-direction: row;
   }
@@ -384,11 +396,12 @@ const downloadFile = (url, fileName) => {
     flex-wrap: wrap;
   }
   .middle-section{
-    border-bottom: 1px solid #0094FF;
-    border-right: none;
+    border-bottom: none;
+    border-right:  1px solid #0094FF;
   }
   .left-section{
     border-bottom: 1px solid #0094FF;
+    border-bottom: none;
   }
  
   .left-section,
@@ -417,7 +430,7 @@ const downloadFile = (url, fileName) => {
   }
 
   .description {
-    -webkit-line-clamp: 4; /* Show more lines on medium small screens */
+   
     line-height: 1.4;
   }
 
@@ -460,6 +473,11 @@ const downloadFile = (url, fileName) => {
     flex-direction: row;
     padding: 5px;
   }
+  .left-section .heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
   .left-section,
   .middle-section,
@@ -481,8 +499,11 @@ const downloadFile = (url, fileName) => {
 }
 
 @media (min-width: 1024px) and (max-width: 1089px) {
-  .right-section {
-    flex: 2;
+  
+  .left-section .heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
   }
 }
 
